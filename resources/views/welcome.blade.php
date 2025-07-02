@@ -136,13 +136,13 @@
                 </ul>
 
                 {{-- Auth Buttons --}}
-                <ul class="navbar-nav mb-2 mb-lg-0">
+                <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
                     @auth
                     <li class="nav-item">
-                        <a href="{{ url('/home') }}" class="btn btn-outline-primary btn-sm me-2">Dashboard</a>
+                        <a href="{{ url('/home') }}" class="btn btn-outline-primary btn-sm">Dashboard</a>
                     </li>
                     @else
-                    <li class="nav-item me-2">
+                    <li class="nav-item">
                         <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">Login</a>
                     </li>
                     @if (Route::has('register'))
