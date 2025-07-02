@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Admin\admin\AdminController;
 use App\Http\Controllers\Admin\accounts\AccountsController;
 use App\Http\Controllers\Admin\settings\SettingsController;
+use App\Http\Controllers\FeaturesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,10 @@ Auth::routes();
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//Features Route
+Route::get('/features',[FeaturesController::class, 'features'])->name('features');
 
 // Admin Routes
 Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {
