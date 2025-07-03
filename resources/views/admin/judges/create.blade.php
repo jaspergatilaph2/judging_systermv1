@@ -11,7 +11,7 @@
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -23,7 +23,7 @@
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -67,14 +67,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{$ActiveTab === 'Adding Judge' ? 'active' : ''}}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-gavel"></i>
                         <div data-i18n="Layouts">Adding Judges</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item">
+                        <li class="menu-item {{$SubActiveTab === 'View Judge' ? 'active' : ''}}">
                             <a href="{{ route('admin.judges.create') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Judges</div>
                             </a>
@@ -154,16 +154,26 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <!-- <i class="bx bx-search fs-4 lh-0"></i>
-              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                aria-label="Search..." /> -->
+          <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+          aria-label="Search..." /> -->
                         </div>
-
                     </div>
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
                         <!-- Place this tag where you want the button to render. -->
-                        <!--  -->
+                        <!-- <li class="nav-item lh-1 me-3">
+            <a
+            class="github-button"
+            href="https://github.com/themeselection/sneat-html-admin-template-free"
+            data-icon="octicon-star"
+            data-size="large"
+            data-show-count="true"
+            aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
+            >Star</a
+            >
+          </li> -->
+
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -171,7 +181,6 @@
                                     <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
-
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -182,13 +191,12 @@
                                                     <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
-
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
-                                                <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                                                <span class="fw-semibold d-block">{{ optional(Auth::user())->name }}
+                                                </span>
+                                                <small class="text-muted">Admin</small>
                                             </div>
-
                                         </div>
                                     </a>
                                 </li>
@@ -239,99 +247,111 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Account Settings /</span> Account</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Add/</span> Judges</h4>
 
+                    <!-- Basic Layout -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
-                                </li>
-                            </ul>
-
+                        <div class="col-xl">
                             <div class="card mb-4">
-                                <h5 class="card-header">Profile Details</h5>
-                                <!-- Account -->
-                                <hr class="my-0" />
-
-                                <!-- Display Success Message -->
-                                @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Judges</h5>
+                                    <small class="text-muted float-end">Default label</small>
                                 </div>
-                                @endif
-
                                 <div class="card-body">
-                                    <!-- Display validation errors -->
-                                    @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                            <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    @endif
-
-                                    <!-- Profile Update Form -->
-                                    <form action="{{ route('admin.accounts.profile.edit', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                    <form method="POST" action="{{ route('admin.judges.store') }}" enctype="multipart/form-data">
                                         @csrf
-                                        @method('PUT') <!-- Overriding the method to PUT -->
-
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Name</label>
-                                            <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $user->name) }}" required>
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
-
-                                        <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
+                                        @endif
+                                        @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
                                         </div>
-
-
+                                        @endif
                                         <div class="mb-3">
-                                            <label for="avatar" class="form-label">Profile Picture</label>
-                                            <input type="file" id="avatarInput" name="avatar" class="form-control mt-2" accept="image/*">
-                                            <img id="uploadedAvatar"
-                                                src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
-                                                alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
+                                            <label class="form-label" for="judge-fullname">Full Name</label>
+                                            <input type="text" class="form-control" id="judge-fullname" name="name"
+                                                placeholder="Juan Dela Cruz" required />
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Update Profile</button>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="judge-organization">Organization / Affiliation</label>
+                                            <input type="text" class="form-control" id="judge-organization" name="organization"
+                                                placeholder="e.g. SLSU, DepEd, etc." />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="judge-email">Email</label>
+                                            <div class="input-group input-group-merge">
+                                                <input type="email" id="judge-email" class="form-control" name="email"
+                                                    placeholder="juan.delacruz@example.com" required />
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="judge-phone">Phone No</label>
+                                            <input type="text" id="judge-phone" class="form-control" name="phone"
+                                                placeholder="09xx xxx xxxx" required />
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="judge-password">Auto-Generated Password</label>
+                                            <input type="text" id="judge-password" class="form-control" name="password"
+                                                value="{{ \Illuminate\Support\Str::random(8) }}" readonly />
+                                            <small class="text-muted">Copy and send this password to the judge.</small>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="judge-image">Upload Image</label>
+                                            <input type="file" id="judge-image" class="form-control" name="image" accept="image/*" required />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Add Judge</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Content wrapper -->
+
+
+                <!-- / Content -->
+
+                <!-- Footer -->
+                <footer class="content-footer footer bg-footer-theme">
+                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                        <div class="mb-2 mb-md-0">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script>
+                            , made with ❤️ by
+                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
+                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
+                        </div>
+                        <div>
+                            <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                            <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
+
+                            <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
+                                target="_blank" class="footer-link me-4">Documentation</a>
+
+                            <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
+                                class="footer-link me-4">Support</a>
+                        </div>
+                    </div>
+                </footer>
+                <!-- / Footer -->
+
+                <div class="content-backdrop fade"></div>
             </div>
-            <footer class="content-footer footer bg-footer-theme">
-                <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                    <div class="mb-2 mb-md-0">
-                        ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        , made with ❤️ by
-                        <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
-                    </div>
-                    <div>
-                        <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                        <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">Contuct Us</a>
-
-                        <a href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                            target="_blank" class="footer-link me-4">Documentation</a>
-
-                        <a href="https://github.com/themeselection/sneat-html-admin-template-free/issues" target="_blank"
-                            class="footer-link me-4">Support</a>
-                    </div>
-                </div>
-            </footer>
-            <!-- / Layout page -->
+            <!-- Content wrapper -->
         </div>
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- / Layout page -->
     </div>
-    <!-- / Layout wrapper -->
-    @endsection
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+</div>
+<!-- / Layout wrapper -->
+@endsection

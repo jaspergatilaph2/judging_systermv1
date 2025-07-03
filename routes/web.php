@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\accounts\AccountsController;
 use App\Http\Controllers\Admin\settings\SettingsController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\judges\JudgesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,5 +52,12 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
     //Settings Route
     Route::prefix('settings')->name('admin.settings.')->group(function(){
         Route::get('/', [SettingsController::class, 'viewSettings'])->name('view');
+    });
+
+
+    // Judges Routes
+    Route::prefix('judges')->name('admin.judges.')->group(function(){
+        Route::get('/', [JudgesController::class, 'create'])->name('create');
+        Route::post('/store', [JudgesController::class, 'store'])->name('store');
     });
 });

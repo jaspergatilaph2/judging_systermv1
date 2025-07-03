@@ -23,7 +23,7 @@
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -31,6 +31,23 @@
                 </li>
 
                 <!-- Layouts -->
+
+                <li class="menu-item">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fa-solid fa-circle-user"></i>
+                        <div data-i18n="Layouts">Contestant</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">View Constestant</div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fas fa-calendar-check"></i>
@@ -58,7 +75,7 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.judges.create') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Judges</div>
                             </a>
                         </li>
@@ -75,24 +92,24 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item {{ $ActiveTab === 'accounts' ? 'active' : ''}}">
+                <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'TabAccounts' ? 'active' : ''}}">
-                            <a href="" class="menu-link">
+                        <li class="menu-item">
+                            <a href="{{ route('admin.accounts.index') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{route('admin.settings.view')}}" class="menu-link">
+                            <a href="{{ route('admin.settings.view') }}" class="menu-link">
                                 <div data-i18n="Notifications">Settings</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="{{route('admin.accounts.editProfile')}}" class="menu-link">
+                            <a href="{{ route('admin.accounts.editProfile') }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
