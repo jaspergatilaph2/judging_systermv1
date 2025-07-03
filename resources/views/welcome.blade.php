@@ -7,6 +7,7 @@
     <title>Judging System | Welcome</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('storage/images/slsu2.png') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
         body {
@@ -98,12 +99,12 @@
 
     {{-- Responsive Navbar with Auth --}}
     @if (Route::has('login'))
-    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary shadow-sm">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-radius: 0 0 18px 18px;">
+        <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
-                <img src="{{ asset('storage/images/slsu2.png') }}" alt="Logo" style="width: 36px; min-width: 30px;">
+                <img src="{{ asset('storage/images/slsu2.png') }}" alt="Logo" style="width: 40px; min-width: 30px;">
                 <span class="d-none d-sm-inline">Judging System (Bontoc Campus)</span>
-                <span class="d-inline d-sm-none">Judging System</span>
+                <span class="d-inline d-sm-none">Judging System (BC)</span>
             </a>
 
             {{-- Toggle button for mobile --}}
@@ -117,20 +118,24 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {{-- Public navigation --}}
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
+                        <a class="nav-link active fw-semibold" href="#">
+                            <i class="bi bi-house-door-fill me-1"></i> Home
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('features')}}">Features</a>
+                        <a class="nav-link fw-semibold" href="{{ route('features')}}">
+                            <i class="bi bi-stars me-1"></i> Features
+                        </a>
                     </li>
                     {{-- Optional Dropdown --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            More
+                            <i class="bi bi-three-dots"></i> More
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">About</a></li>
-                            <li><a class="dropdown-item" href="#">Support</a></li>
+                        <ul class="dropdown-menu rounded-3 shadow">
+                            <li><a class="dropdown-item" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i> About</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -139,15 +144,17 @@
                 <ul class="navbar-nav mb-2 mb-lg-0 gap-2">
                     @auth
                     <li class="nav-item">
-                        <a href="{{ url('/home') }}" class="btn btn-outline-primary btn-sm">Dashboard</a>
+                        <a href="{{ url('/home') }}" class="btn btn-outline-primary btn-sm px-3 rounded-pill">
+                            <i class="bi bi-speedometer2 me-1"></i> Dashboard
+                        </a>
                     </li>
                     @else
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm">Login</a>
+                        <a href="{{ route('login') }}" class="btn btn-outline-secondary btn-sm px-3 rounded-pill">Login</a>
                     </li>
                     @if (Route::has('register'))
                     <li class="nav-item">
-                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm px-3 rounded-pill">Register</a>
                     </li>
                     @endif
                     @endauth
@@ -156,7 +163,6 @@
         </div>
     </nav>
     @endif
-
 
     {{-- Hero Section --}}
     <section class="hero-section d-flex align-items-center">

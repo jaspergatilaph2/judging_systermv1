@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Judging System | Features</title>
+    <title>Judging System | About</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('storage/images/slsu2.png') }}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -24,27 +24,16 @@
             flex: 1;
         }
 
-        .features-section {
+        .about-section {
             padding: 60px 15px;
             background-color: #fff;
         }
 
-        .feature-box {
+        .about-box {
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 30px 20px;
+            padding: 30px 25px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s;
-            height: 100%;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
         }
 
         footer {
@@ -58,7 +47,6 @@
 </head>
 
 <body>
-
     {{-- Responsive Navbar with Auth --}}
     @if (Route::has('login'))
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-radius: 0 0 18px 18px;">
@@ -80,12 +68,12 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {{-- Public navigation --}}
                     <li class="nav-item">
-                        <a class="nav-link fw-semibold" href="#">
+                        <a class="nav-link  fw-semibold" href="#">
                             <i class="bi bi-house-door-fill me-1"></i> Home
                         </a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link fw-semibold active" href="{{ route('features')}}">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="{{ route('features')}}">
                             <i class="bi bi-stars me-1"></i> Features
                         </a>
                     </li>
@@ -96,7 +84,7 @@
                             <i class="bi bi-three-dots"></i> More
                         </a>
                         <ul class="dropdown-menu rounded-3 shadow">
-                            <li><a class="dropdown-item" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i> About</a></li>
+                            <li><a class="dropdown-item active" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i> About</a></li>
                             <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
                         </ul>
                     </li>
@@ -127,47 +115,59 @@
     @endif
 
     <main>
-        {{-- Features Section --}}
-        <section id="features" class="features-section text-center">
+        {{-- About Section --}}
+        <section id="about" class="about-section">
             <div class="container">
-                <h2 class="mb-4 fw-bold display-6">
-                    <i class="bi bi-stars text-primary me-2"></i>
-                    Why Choose Our System?
-                </h2>
-                <p class="mb-5 text-muted fs-5">Simplify your event's judging process with these key features</p>
-                <div class="row g-4">
-                    <div class="col-12 col-md-6 col-lg-4 d-flex">
-                        <div class="feature-box w-100 shadow-lg border-0 bg-white h-100 p-4">
-                            <div class="feature-icon mb-3">
-                                <span class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width:60px; height:60px;">
-                                    <i class="bi bi-bullseye text-primary fs-2"></i>
-                                </span>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-6 mb-4 mb-lg-0">
+                        <div class="text-center">
+                            <img src="{{ asset('storage/images/slsu2.png') }}" alt="Logo" class="img-fluid mb-3" style="max-width:110px;">
+                        </div>
+                        <div class="about-box shadow-lg border-0">
+                            <h2 class="text-center mb-3">
+                                <i class="bi bi-stars text-primary"></i>
+                                About the Judging System
+                            </h2>
+                            <p class="lead text-center mb-4">
+                                The Judging System is a web-based platform developed for managing competitions at <strong>Southern Leyte State University - Bontoc Campus</strong>.
+                            </p>
+                            <ul class="list-group list-group-flush mb-4">
+                                <li class="list-group-item bg-transparent border-0">
+                                    <i class="bi bi-gear-fill text-primary me-2"></i>
+                                    Flexible judging criteria &amp; live scoring
+                                </li>
+                                <li class="list-group-item bg-transparent border-0">
+                                    <i class="bi bi-bar-chart-fill text-success me-2"></i>
+                                    Real-time analytics &amp; reporting
+                                </li>
+                                <li class="list-group-item bg-transparent border-0">
+                                    <i class="bi bi-people-fill text-warning me-2"></i>
+                                    User-friendly for admins, judges, and participants
+                                </li>
+                                <li class="list-group-item bg-transparent border-0">
+                                    <i class="bi bi-shield-check text-info me-2"></i>
+                                    Transparent, accurate, and fair evaluations
+                                </li>
+                            </ul>
+                            <p>
+                                With its intuitive design and efficient management tools, the platform adapts to any event—solo or group, academic or cultural.
+                            </p>
+                            <div class="d-flex justify-content-center align-items-center gap-2 mt-3">
+                                <span class="badge bg-danger">Laravel</span>
+                                <span class="badge bg-primary">Bootstrap</span>
+                                <span class="badge bg-dark">Modern Web</span>
                             </div>
-                            <h5 class="fw-semibold">Criteria-Based Scoring</h5>
-                            <p class="text-muted">Customizable judging criteria with weighted scoring and real-time computation.</p>
+                            <p class="text-center mt-4">
+                                <strong>Contact Us:</strong> <br>
+                                <a href="mailto:support@slsu.edu.ph" class="link-primary text-decoration-none">
+                                    <i class="bi bi-envelope-fill me-1"></i>support@slsu.edu.ph
+                                </a>
+                            </p>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex">
-                        <div class="feature-box w-100 shadow-lg border-0 bg-white h-100 p-4">
-                            <div class="feature-icon mb-3">
-                                <span class="rounded-circle bg-success bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width:60px; height:60px;">
-                                    <i class="bi bi-person-badge-fill text-success fs-2"></i>
-                                </span>
-                            </div>
-                            <h5 class="fw-semibold">Judge Management</h5>
-                            <p class="text-muted">Add, assign, and monitor judges per category or contest with easy role control.</p>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-lg-4 d-flex mx-auto">
-                        <div class="feature-box w-100 shadow-lg border-0 bg-white h-100 p-4">
-                            <div class="feature-icon mb-3">
-                                <span class="rounded-circle bg-info bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width:60px; height:60px;">
-                                    <i class="bi bi-bar-chart-fill text-info fs-2"></i>
-                                </span>
-                            </div>
-                            <h5 class="fw-semibold">Live Results & Analytics</h5>
-                            <p class="text-muted">Track scores and generate reports instantly with visual breakdowns and insights.</p>
-                        </div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80"
+                            alt="Judging Illustration" class="img-fluid rounded-4 shadow-lg" style="object-fit:cover; height: 100%;">
                     </div>
                 </div>
             </div>

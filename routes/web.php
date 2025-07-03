@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\admin\AdminController;
 use App\Http\Controllers\Admin\accounts\AccountsController;
 use App\Http\Controllers\Admin\settings\SettingsController;
 use App\Http\Controllers\FeaturesController;
+use App\Http\Controllers\AboutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Features Route
 Route::get('/features',[FeaturesController::class, 'features'])->name('features');
+
+//About Route
+Route::get('/about', [AboutController::class, 'about'])->name('about');
 
 // Admin Routes
 Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {
