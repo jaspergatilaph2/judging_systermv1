@@ -65,7 +65,7 @@
             </li>
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Edit Judges</div>
+                <div data-i18n="Without navbar">View Judges</div>
               </a>
             </li>
           </ul>
