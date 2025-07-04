@@ -23,7 +23,7 @@
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{ route('admin.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item ">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-gavel"></i>
                         <div data-i18n="Layouts">Adding Judges</div>
@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
                                 <div data-i18n="Without navbar">View Judges</div>
                             </a>
                         </li>
@@ -92,13 +92,13 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{$ActiveTab === 'accounts' ? 'active' : ''}} ">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActiveTab === 'TabAccounts' ? 'active' : ''}}">
                             <a href="{{ route('admin.accounts.index') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>

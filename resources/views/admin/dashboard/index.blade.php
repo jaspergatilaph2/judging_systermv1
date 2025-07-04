@@ -81,7 +81,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
                 <div data-i18n="Without navbar">View Judges</div>
               </a>
             </li>

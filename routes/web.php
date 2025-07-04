@@ -59,5 +59,9 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
     Route::prefix('judges')->name('admin.judges.')->group(function(){
         Route::get('/', [JudgesController::class, 'create'])->name('create');
         Route::post('/store', [JudgesController::class, 'store'])->name('store');
+        Route::get('/view', [JudgesController::class, 'viewJudges'])->name('viewjudges');
+        Route::get('/edit/{judges}', [JudgesController::class, 'edit'])->name('edit');
+        Route::delete('/{judges}/delete', [JudgesController::class, 'destroy'])->name('destroy');
+        Route::put('/{judges}/update', [JudgesController::class, 'update'])->name('update');
     });
 });

@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
                                 <div data-i18n="Without navbar">View Judges</div>
                             </a>
                         </li>
@@ -299,7 +299,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="judge-password">Auto-Generated Password</label>
                                             <input type="text" id="judge-password" class="form-control" name="password"
-                                                value="{{ \Illuminate\Support\Str::random(8) }}" readonly />
+                                                value="{{ $generatedPassword ?? '' }}" required/>
                                             <small class="text-muted">Copy and send this password to the judge.</small>
                                         </div>
                                         <div class="mb-3">

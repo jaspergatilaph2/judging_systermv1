@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
                                 <div data-i18n="Without navbar">View Judges</div>
                             </a>
                         </li>
@@ -92,7 +92,7 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{$ActiveTab === 'settings' ? 'active' : ''}}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
@@ -103,7 +103,7 @@
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActiveTab === 'viewSettings' ? 'active' : '' }}">
                             <a href="{{ route('admin.settings.view') }}" class="menu-link">
                                 <div data-i18n="Notifications">Settings</div>
                             </a>

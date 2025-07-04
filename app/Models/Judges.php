@@ -12,6 +12,7 @@ class Judges extends Model
         'organization',
         'email',
         'phone',
+        'password',
         'image',
     ];
 
