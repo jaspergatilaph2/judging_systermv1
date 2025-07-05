@@ -80,3 +80,9 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
         Route::delete('/view/{event}/delete', [EventsController::class, 'destroy'])->name('destroy');
     });
 });
+
+
+// Jugdes Routes
+Route::group(['middleware' => ['auth', 'Ifjudges'], 'prefix' => 'judges'] ,function(){
+    Route::get('/dashboard', [JudgesController::class, 'dashboard'])->name('judges.dashboard');
+});

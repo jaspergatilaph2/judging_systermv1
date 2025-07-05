@@ -1,12 +1,13 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Judges extends Model
+class Judges extends Authenticatable
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'organization',
@@ -17,5 +18,5 @@ class Judges extends Model
     ];
 
     protected $table = 'judges';
-    use HasFactory;
+    public $timestamps = false; 
 }

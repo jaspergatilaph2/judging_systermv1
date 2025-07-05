@@ -77,4 +77,11 @@ class JudgesController extends Controller
         $judge->update($request->all());
         return redirect()->route('admin.judges.viewjudges')->with('success', 'Judge updated successfully.');
     }
+
+    public function dashboard(){
+        return view('judges.dashboard.dashboard', [
+            'ActiveTab' => 'Dashboard',
+            'SubActiveTab' => 'Dashboard'
+        ]);
+    }
 }
