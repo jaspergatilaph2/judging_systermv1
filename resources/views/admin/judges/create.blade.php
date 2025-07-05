@@ -299,7 +299,7 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="judge-password">Auto-Generated Password</label>
                                             <input type="text" id="judge-password" class="form-control" name="password"
-                                                value="{{ $generatedPassword ?? '' }}" required/>
+                                                value="{{ $generatedPassword ?? '' }}" required readonly />
                                             <small class="text-muted">Copy and send this password to the judge.</small>
                                         </div>
                                         <div class="mb-3">

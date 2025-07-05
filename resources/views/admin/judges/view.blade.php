@@ -311,7 +311,7 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Password</label>
-                                                                        <input type="text" class="form-control" name="password" value="{{ \Illuminate\Support\Str::random(8) }}" required>
+                                                                        <input type="text" class="form-control" name="password" value="{{ \Illuminate\Support\Str::random(8) }}" required readonly/>
                                                                         <small class="text-muted">This will overwrite the judge's password with a new one.</small>
                                                                     </div>
                                                                     <div class="mb-3">
