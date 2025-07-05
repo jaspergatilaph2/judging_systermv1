@@ -10,6 +10,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\LiveVoteController;
 use App\Http\Controllers\Admin\judges\JudgesController;
+use App\Http\Controllers\Admin\events\EventsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,7 +34,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //Features Route
-Route::get('/features',[FeaturesController::class, 'features'])->name('features');
+Route::get('/features', [FeaturesController::class, 'features'])->name('features');
 //About Route
 Route::get('/about', [AboutController::class, 'about'])->name('about');
 // Support Route
@@ -55,18 +56,27 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
 
 
     //Settings Route
-    Route::prefix('settings')->name('admin.settings.')->group(function(){
+    Route::prefix('settings')->name('admin.settings.')->group(function () {
         Route::get('/', [SettingsController::class, 'viewSettings'])->name('view');
     });
 
 
     // Judges Routes
-    Route::prefix('judges')->name('admin.judges.')->group(function(){
+    Route::prefix('judges')->name('admin.judges.')->group(function () {
         Route::get('/', [JudgesController::class, 'create'])->name('create');
         Route::post('/store', [JudgesController::class, 'store'])->name('store');
         Route::get('/view', [JudgesController::class, 'viewJudges'])->name('viewjudges');
         Route::get('/edit/{judges}', [JudgesController::class, 'edit'])->name('edit');
         Route::delete('/{judges}/delete', [JudgesController::class, 'destroy'])->name('destroy');
         Route::put('/{judges}/update', [JudgesController::class, 'update'])->name('update');
+    });
+
+    // Events Routes
+    Route::prefix('/events')->name('admin.events.')->group(function () {
+        Route::get('/', [EventsController::class, 'ViewEvents'])->name('events');
+        Route::post('/store', [EventsController::class, 'store'])->name('store');
+        Route::get('/view', [EventsController::class, 'view'])->name('view');
+        Route::put('/view/{event}/update', [EventsController::class, 'update'])->name('update');
+        Route::delete('/view/{event}/delete', [EventsController::class, 'destroy'])->name('destroy');
     });
 });
