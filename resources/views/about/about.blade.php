@@ -51,7 +51,8 @@
     @if (Route::has('login'))
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm" style="background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); border-radius: 0 0 18px 18px;">
         <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="{{ url('/') }}">
+                {{-- Logo --}}
                 <img src="{{ asset('storage/images/slsu2.png') }}" alt="Logo" style="width: 40px; min-width: 30px;">
                 <span class="d-none d-sm-inline">Judging System (Bontoc Campus)</span>
                 <span class="d-inline d-sm-none">Judging System (BC)</span>
@@ -73,6 +74,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="{{route('vote')}}">
+                            <i class="bi bi-bar-chart me-1"></i> Live Vote
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fw-semibold" href="{{ route('features')}}">
                             <i class="bi bi-stars me-1"></i> Features
                         </a>
@@ -85,7 +91,7 @@
                         </a>
                         <ul class="dropdown-menu rounded-3 shadow">
                             <li><a class="dropdown-item active" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i> About</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
+                            <li><a class="dropdown-item" href="{{route('support')}}"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
                         </ul>
                     </li>
                 </ul>

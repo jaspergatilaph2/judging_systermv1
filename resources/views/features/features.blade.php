@@ -84,6 +84,11 @@
                             <i class="bi bi-house-door-fill me-1"></i> Home
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="{{route('vote')}}">
+                            <i class="bi bi-bar-chart me-1"></i> Live Vote
+                        </a>
+                    </li>
                     <li class="nav-item ">
                         <a class="nav-link fw-semibold active" href="{{ route('features')}}">
                             <i class="bi bi-stars me-1"></i> Features

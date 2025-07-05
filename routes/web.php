@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\accounts\AccountsController;
 use App\Http\Controllers\Admin\settings\SettingsController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\SupportController;
+use App\Http\Controllers\LiveVoteController;
 use App\Http\Controllers\Admin\judges\JudgesController;
 
 /*
@@ -32,9 +34,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 //Features Route
 Route::get('/features',[FeaturesController::class, 'features'])->name('features');
-
 //About Route
 Route::get('/about', [AboutController::class, 'about'])->name('about');
+// Support Route
+Route::get('/support', [SupportController::class, 'support'])->name('support');
+// Live Vote Route
+Route::get('/live-vote', [LiveVoteController::class, 'vote'])->name('vote');
 
 // Admin Routes
 Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {

@@ -118,8 +118,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {{-- Public navigation --}}
                     <li class="nav-item">
-                        <a class="nav-link active fw-semibold" href="#">
+                        <a class="nav-link active fw-semibold" href="{{ url('/') }}">
                             <i class="bi bi-house-door-fill me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="{{route('vote')}}">
+                            <i class="bi bi-bar-chart me-1"></i> Live Vote
                         </a>
                     </li>
                     <li class="nav-item">
@@ -135,7 +140,7 @@
                         </a>
                         <ul class="dropdown-menu rounded-3 shadow">
                             <li><a class="dropdown-item" href="{{ route('about') }}"><i class="bi bi-info-circle me-1"></i> About</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
+                            <li><a class="dropdown-item" href="{{ route('support') }}"><i class="bi bi-life-preserver me-1"></i> Support</a></li>
                         </ul>
                     </li>
                 </ul>
