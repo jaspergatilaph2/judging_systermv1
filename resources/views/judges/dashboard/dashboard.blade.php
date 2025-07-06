@@ -36,13 +36,13 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-circle-user"></i>
-            <div data-i18n="Layouts">Voting</div>
+            <div data-i18n="Layouts">Judging Panel</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Vote Now</div>
+                <div data-i18n="Without menu">Participants</div>
               </a>
             </li>
             
