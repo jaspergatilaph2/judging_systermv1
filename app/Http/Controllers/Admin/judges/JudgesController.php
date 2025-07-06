@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Judges;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class JudgesController extends Controller
 {
@@ -78,10 +79,14 @@ class JudgesController extends Controller
         return redirect()->route('admin.judges.viewjudges')->with('success', 'Judge updated successfully.');
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
+        $judge = Auth::guard('judges')->user(); // ✅ fetch logged-in judge
+
         return view('judges.dashboard.dashboard', [
             'ActiveTab' => 'Dashboard',
-            'SubActiveTab' => 'Dashboard'
+            'SubActiveTab' => 'Dashboard',
+            'judge' => $judge,
         ]);
     }
 }

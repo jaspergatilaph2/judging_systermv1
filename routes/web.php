@@ -83,6 +83,6 @@ Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], functio
 
 
 // Jugdes Routes
-Route::group(['middleware' => ['auth', 'Ifjudges'], 'prefix' => 'judges'] ,function(){
+Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges'] ,function(){
     Route::get('/dashboard', [JudgesController::class, 'dashboard'])->name('judges.dashboard');
 });

@@ -18,5 +18,5 @@ class Judges extends Authenticatable
     ];
 
     protected $table = 'judges';
-    public $timestamps = false; 
+    // public $timestamps = false; 
 }

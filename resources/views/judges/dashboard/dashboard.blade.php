@@ -36,13 +36,13 @@
         <li class="menu-item">
           <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class="menu-icon fa-solid fa-circle-user"></i>
-            <div data-i18n="Layouts">Contestant</div>
+            <div data-i18n="Layouts">Voting</div>
           </a>
 
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">View Constestant</div>
+                <div data-i18n="Without menu">Vote Now</div>
               </a>
             </li>
             
@@ -165,7 +165,7 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
               <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                 <div class="avatar avatar-online">
-                  <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                  <img src="{{ asset('storage/' . auth()->guard('judges')->user()->image) }}" alt
                     class="w-px-120 h-px-120 rounded-circle" />
                 </div>
               </a>
@@ -175,13 +175,13 @@
                     <div class="d-flex">
                       <div class="flex-shrink-0 me-3">
                         <div class="avatar avatar-online">
-                          <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                          <img src="{{ asset('storage/' . auth()->guard('judges')->user()->image) }}" alt
                             class="w-px-120 h-px-120 rounded-circle" />
                         </div>
                       </div>
                       <div class="flex-grow-1">
                         <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                        <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                        <small class="text-muted"> {{ auth()->guard('judges')->check() ? 'Judge' : 'Guest' }}</small>
                       </div>
                     </div>
                   </a>
