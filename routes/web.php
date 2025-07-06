@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\accounts\AccountsController;
 use App\Http\Controllers\Admin\settings\SettingsController;
 use App\Http\Controllers\FeaturesController;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\Admin\criteria\CriteriaController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\LiveVoteController;
 use App\Http\Controllers\Admin\judges\JudgesController;
@@ -78,6 +79,12 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
         Route::get('/view', [EventsController::class, 'view'])->name('view');
         Route::put('/view/{event}/update', [EventsController::class, 'update'])->name('update');
         Route::delete('/view/{event}/delete', [EventsController::class, 'destroy'])->name('destroy');
+    });
+
+    // Criteria Routes
+    Route::prefix('criteria')->name('admin.criteria.')->group(function(){
+        Route::get('/', [CriteriaController::class,'index'])->name('index');
+        Route::post('/store', [CriteriaController::class, 'store'])->name('store');
     });
 });
 

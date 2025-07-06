@@ -108,6 +108,7 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{asset('sneat/js/addingCriteria.js')}}"></script>
 </body>
 
 </html>
