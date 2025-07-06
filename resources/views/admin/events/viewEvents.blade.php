@@ -55,7 +55,7 @@ use App\Models\logs;
                 <li class="menu-item {{ $ActiveTab === 'events' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fas fa-calendar-check"></i>
-                        <div data-i18n="Layouts">Events</div>
+                        <div data-i18n="Layouts">Events & Criteria</div>
                     </a>
 
                     <ul class="menu-sub">
@@ -67,6 +67,11 @@ use App\Models\logs;
                         <li class="menu-item {{$SubActiveTab === 'view Events' ? 'active' : ''}}">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">View Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
                     </ul>

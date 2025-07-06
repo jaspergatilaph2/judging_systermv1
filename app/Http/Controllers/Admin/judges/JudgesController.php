@@ -81,12 +81,12 @@ class JudgesController extends Controller
 
     public function dashboard()
     {
-        $judge = Auth::guard('judges')->user(); // ✅ fetch logged-in judge
+        // $judge = Auth::guard('judges')->user(); // ✅ fetch logged-in judge
 
         return view('judges.dashboard.dashboard', [
             'ActiveTab' => 'Dashboard',
             'SubActiveTab' => 'Dashboard',
-            'judge' => $judge,
+            // 'judge' => $judge,
         ]);
     }
 }

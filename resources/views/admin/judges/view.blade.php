@@ -51,7 +51,7 @@
                 <li class="menu-item">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fas fa-calendar-check"></i>
-                        <div data-i18n="Layouts">Events</div>
+                        <div data-i18n="Layouts">Events & Criteria</div>
                     </a>
 
                     <ul class="menu-sub">
@@ -63,6 +63,11 @@
                         <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">View Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
                     </ul>
@@ -311,7 +316,7 @@
                                                                     </div>
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Password</label>
-                                                                        <input type="text" class="form-control" name="password" value="{{ \Illuminate\Support\Str::random(8) }}" required readonly/>
+                                                                        <input type="text" class="form-control" name="password" value="{{ \Illuminate\Support\Str::random(8) }}" required readonly />
                                                                         <small class="text-muted">This will overwrite the judge's password with a new one.</small>
                                                                     </div>
                                                                     <div class="mb-3">

@@ -43,7 +43,7 @@ Route::get('/support', [SupportController::class, 'support'])->name('support');
 Route::get('/live-vote', [LiveVoteController::class, 'vote'])->name('vote');
 
 // Admin Routes
-Route::group(['middleware' => ['auth', 'ifAdmin'], 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
 

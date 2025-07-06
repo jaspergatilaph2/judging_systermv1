@@ -46,11 +46,15 @@ class LoginController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        $judge = Judges::where('email', $credentials['email'])
-            ->where('password', $credentials['password']) // plain text check
-            ->first();
+        // Try admin login
+        if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
+            return redirect()->intended('/admin/dashboard');
+        }
 
-        if ($judge) {
+        // Try judge login
+        $judge = Judges::where('email', $credentials['email'])->first();
+
+        if ($judge && $judge->password === $credentials['password']) {
             Auth::guard('judges')->login($judge);
             return redirect()->route('judges.dashboard');
         }
