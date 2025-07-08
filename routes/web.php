@@ -12,6 +12,7 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\LiveVoteController;
 use App\Http\Controllers\Admin\judges\JudgesController;
 use App\Http\Controllers\Admin\events\EventsController;
+use App\Http\Controllers\Judges\accounts\AccountsJudgeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,4 +93,9 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
 // Jugdes Routes
 Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges'] ,function(){
     Route::get('/dashboard', [JudgesController::class, 'dashboard'])->name('judges.dashboard');
+
+    //Judges Accounts
+    Route::prefix('accounts')->name('judges.accounts.')->group(function(){
+        Route::get('/', [AccountsJudgeController::class, 'AccountsIndex'])->name('AccountsIndex');
+    });
 });

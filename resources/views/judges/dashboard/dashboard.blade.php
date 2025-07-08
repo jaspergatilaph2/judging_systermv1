@@ -42,10 +42,11 @@
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="" class="menu-link">
-                <div data-i18n="Without menu">Participants</div>
+                <div data-i18n="Without menu">Participantsls
+                </div>
               </a>
             </li>
-            
+
           </ul>
         </li>
 
@@ -88,7 +89,7 @@
           </ul>
         </li> -->
 
-       
+
 
         <li class="menu-header small text-uppercase">
           <span class="menu-header-text">Accounts</span>
@@ -100,20 +101,16 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
+              <a href="{{route('judges.accounts.AccountsIndex')}}" class="menu-link">
                 <div data-i18n="Account">Account</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Notifications">Settings</div>
-              </a>
-            </li>
-            <li class="menu-item">
+
+            <!-- <li class="menu-item">
               <a href="" class="menu-link">
                 <div data-i18n="Notifications">Update Account</div>
               </a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
@@ -196,18 +193,11 @@
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{route('admin.settings.view')}}">
-                    <i class="bx bx-cog me-2"></i>
-                    <span class="align-middle">Settings</span>
-                  </a>
-                </li>
-                <li>
                   <a class="dropdown-item" href="">
                     <i class="menu-icon tf-icons bx bx-file"></i>
                     <span class="align-middle">Logs</span>
                   </a>
                 </li>
-
                 <li>
                   <div class="dropdown-divider"></div>
                 </li>
