@@ -70,8 +70,5 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function redirectTo()
-    {
-        return '/user/dashboard';
-    }
+    
 }

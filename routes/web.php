@@ -85,25 +85,25 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
     });
 
     // Criteria Routes
-    Route::prefix('criteria')->name('admin.criteria.')->group(function(){
-        Route::get('/', [CriteriaController::class,'index'])->name('index');
+    Route::prefix('criteria')->name('admin.criteria.')->group(function () {
+        Route::get('/', [CriteriaController::class, 'index'])->name('index');
         Route::post('/store', [CriteriaController::class, 'store'])->name('store');
     });
 });
 
 
 // Jugdes Routes
-Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges'] ,function(){
+Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges'], function () {
     Route::get('/dashboard', [JudgesController::class, 'dashboard'])->name('judges.dashboard');
 
     //Judges Accounts
-    Route::prefix('accounts')->name('judges.accounts.')->group(function(){
+    Route::prefix('accounts')->name('judges.accounts.')->group(function () {
         Route::get('/', [AccountsJudgeController::class, 'AccountsIndex'])->name('AccountsIndex');
     });
 });
 
 
 //Contestant or Users Routes
-Route::group(['middleware' =>['auth:web', 'IfUser'], 'prefix' => 'users'], function(){
+Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], function () {
     Route::get('/dashboard', [UsersController::class, 'UsersIndex'])->name('users.dashboard');
 });

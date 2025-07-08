@@ -65,11 +65,11 @@
 <body>
     <div id="app">
 
-        @if (session('error'))
+        <!-- @if (session('error'))
         <div class="alert alert-danger">
             {{ session('error') }}
         </div>
-        @endif
+        @endif -->
         <main class="py-4">
             @yield('content')
         </main>

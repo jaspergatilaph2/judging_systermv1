@@ -48,7 +48,17 @@ class LoginController extends Controller
 
         // Try admin login
         if (Auth::guard('web')->attempt($credentials, $request->filled('remember'))) {
-            return redirect()->intended('/admin/dashboard');
+            $user = Auth::guard('web')->user();
+
+            // Check if admin (you can use role column or another identifier)
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/dashboard');
+            }
+
+            // Check if regular user
+            if ($user->role === 'user') {
+                return redirect()->intended('/users/dashboard');
+            }
         }
 
         // Try judge login
