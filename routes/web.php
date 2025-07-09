@@ -106,4 +106,12 @@ Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges']
 //Contestant or Users Routes
 Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], function () {
     Route::get('/dashboard', [UsersController::class, 'UsersIndex'])->name('users.dashboard');
+
+    // User Accounts Routes
+    Route::prefix('accounts')->name('users.accounts.')->group(function () {
+        Route::get('/', [UsersController::class, 'userAccounts'])->name('accounts');
+        Route::get('/editProfile', [UsersController::class, 'editProfile'])->name('editProfile'); // <-- Show form
+        Route::post('/{id}/update', [UsersController::class, 'updateProfile'])->name('updateProfile'); // <-- Form action
+        
+    });
 });

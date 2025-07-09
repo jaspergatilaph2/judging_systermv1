@@ -1,31 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="{{route('users.dashboard')}}" class="app-brand-link">
+                <a href="{{ route('users.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
-                    <img src="{{asset('storage/images/slsu2.png')}}" alt="Logo" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu(BC)</span>
+                    <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
                 </a>
 
-                <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-          <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
-        </a> -->
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
             </div>
 
             <div class="menu-inner-shadow"></div>
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item active">
-                    <a href="{{route('users.dashboard')}}" class="menu-link">
+                <li class="menu-item">
+                    <a href="{{ route('users.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -42,8 +41,7 @@
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Participate or Join
-                                </div>
+                                <div data-i18n="Without menu">Participate or Join</div>
                             </a>
                         </li>
 
@@ -51,57 +49,62 @@
                 </li>
 
                 <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fas fa-calendar-check"></i>
-            <div data-i18n="Layouts">Events</div>
-          </a>
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fas fa-calendar-check"></i>
+                        <div data-i18n="Layouts">Events & Criteria</div>
+                    </a>
 
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without menu">Create Events</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">View Events</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-                <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fa-solid fa-gavel"></i>
-            <div data-i18n="Layouts">Adding Judges</div>
-          </a>
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Create Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">View Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Add Criteria</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+                <!-- <li class="menu-item ">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fa-solid fa-gavel"></i>
+                        <div data-i18n="Layouts">Adding Judges</div>
+                    </a>
 
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Judges</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">View Judges</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="{{ route('admin.judges.create') }}" class="menu-link">
+                                <div data-i18n="Without navbar">Judges</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
+                                <div data-i18n="Without navbar">View Judges</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
 
 
 
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'accounts' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{route('users.accounts.accounts')}}" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'UserAccounts' ? 'active' : '' }}">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
@@ -110,7 +113,6 @@
                                 <div data-i18n="Notifications">Settings</div>
                             </a>
                         </li>
-                        
                         <li class="menu-item">
                             <a href="{{route('users.accounts.editProfile')}}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
@@ -158,6 +160,7 @@
                         <div class="nav-item d-flex align-items-center">
 
                         </div>
+
                     </div>
                     <!-- /Search -->
 
@@ -170,6 +173,7 @@
                                     <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
+
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
@@ -180,11 +184,13 @@
                                                     <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
+
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
+                                                <span class="fw-semibold d-block">{{ Auth::user()->name }}</span>
                                                 <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
                                             </div>
+
                                         </div>
                                     </a>
                                 </li>
@@ -195,6 +201,12 @@
                                     <a class="dropdown-item" href="">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
                                     </a>
                                 </li>
                                 <li>
@@ -228,49 +240,63 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
+
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 pt-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">TOTAL NUMBERS OF CONTESTANT</h5>
-                                        <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
-                                        <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                                            <strong style="font-size:8.5rem; text-align:center;"></strong>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Users Account Settings /</span>Show Account
+                    </h4>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> Account</a>
+                                </li>
+                            </ul>
+
+                            <div class="card mb-4">
+                                <h5 class="card-header">Profile Details</h5>
+                                <!-- Account -->
+                                <hr class="my-0" />
+
+                                <div class="card-body">
+                                    <!-- User Data -->
+                                    <div class="row">
+                                        <!-- Name Field -->
+                                        <div class="mb-3 col-md-6">
+                                            <label for="name" class="form-label">Name</label>
+                                            <input class="form-control" type="text" id="name" name="name" value="{{ $user->name }}"
+                                                readonly />
                                         </div>
 
+                                        <!-- Email Field -->
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">E-mail</label>
+                                            <input class="form-control" type="email" id="email" name="email" value="{{ $user->email }}"
+                                                readonly />
+                                        </div>
+
+                                        <div class="mb-3 col-md-6">
+                                            <label for="email" class="form-label">Role</label>
+                                            <input class="form-control" type="email" id="email" name="email" value="{{ $user->role }}"
+                                                readonly />
+                                        </div>
+                                    </div>
+
+                                    <!-- Image Field -->
+                                    <div class="mb-3">
+                                        <label for="avatar" class="form-label">Profile Picture</label>
+                                        <img id="uploadedAvatar"
+                                            src="{{ $user->avatar ? asset('storage/' . $user->avatar) : asset('assets/img/avatars/1.png') }}"
+                                            alt="avatar" class="d-block rounded mt-2" width="100" height="100" />
                                     </div>
                                 </div>
+                                <!-- /Account -->
                             </div>
-
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PENDING CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> pending</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF CONFIRMED CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> confirmed</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
 
                         </div>
                     </div>
                 </div>
+
 
 
                 <!-- / Content -->
@@ -284,7 +310,8 @@
                                 document.write(new Date().getFullYear());
                             </script>
                             , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
+                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
                         </div>
                         <div>
                             <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

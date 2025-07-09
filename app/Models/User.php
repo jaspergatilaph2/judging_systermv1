@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
+        'role', // Added role attribute for user roles
     ];
 
     /**
