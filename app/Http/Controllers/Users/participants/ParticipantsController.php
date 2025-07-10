@@ -13,4 +13,9 @@ class ParticipantsController extends Controller
             'SubActiveTab' => 'Create Tab'
         ]);
     }
+
+
+    public function store(Request $request){
+        
+    }
 }

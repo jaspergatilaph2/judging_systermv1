@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
+            $table->integer('student_id');
+            $table->string('student_name');
+            $table->string('contest_category');
+            $table->string('contest_type');
             $table->timestamps();
         });
     }

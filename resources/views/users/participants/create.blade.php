@@ -270,35 +270,52 @@
                                         {{-- Participant Students Id Number --}}
                                         <div class="mb-3">
                                             <label class="form-label" for="participant-name">Participant Student ID</label>
-                                            <input type="text" class="form-control" id="participant-name" name="student_id" placeholder="e.g. 2010223-1" required />
+                                            <input
+                                                type="text"
+                                                class="form-control"
+                                                id="participant-name"
+                                                name="student_id"
+                                                placeholder="e.g. 2010223-1"
+                                                required
+                                                pattern="\d{9,}"
+                                                minlength="9"
+                                                title="Student ID must be at least 9 digits long" />
                                         </div>
 
                                         {{-- Participant Name --}}
                                         <div class="mb-3">
                                             <label class="form-label" for="participant-name">Participant Name</label>
-                                            <input type="text" class="form-control" id="participant-name" name="name" placeholder="e.g. Juan Dela Cruz" required />
-                                        </div>
-
-                                        {{-- Email --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="participant-email">Email</label>
-                                            <input type="email" class="form-control" id="participant-email" name="email" placeholder="e.g. juan@example.com" required />
-                                        </div>
-
-                                        {{-- Age --}}
-                                        <div class="mb-3">
-                                            <label class="form-label" for="participant-age">Age</label>
-                                            <input type="number" class="form-control" id="participant-age" name="age" placeholder="e.g. 21" min="1" required />
+                                            <input type="text" class="form-control" id="participant-name" name="student_name" placeholder="e.g. Juan Dela Cruz" required />
                                         </div>
 
                                         {{-- Contest Type --}}
                                         <div class="mb-3">
+                                            <label class="form-label" for="contest-category">Contest Category</label>
+                                            <select class="form-control" id="contest-category" name="contest_category" required onchange="updateContestTypes()">
+                                                <option value="" selected disabled>-- Select Contest Category --</option>
+                                                <option value="Singing Contest">Singing Contest</option>
+                                                <option value="Dance Contest">Dance Contest</option>
+                                                <option value="Pageant">Pageant</option>
+                                                <option value="Quiz Bee">Quiz Bee</option>
+                                                <option value="Debate">Debate</option>
+                                                <option value="Mr. & Ms. Contest">Mr. & Ms. Contest</option>
+                                                <option value="Talent Show">Talent Show</option>
+                                                <option value="Battle of the Bands">Battle of the Bands</option>
+                                                <option value="Spoken Word / Poetry">Spoken Word / Poetry</option>
+                                                <option value="Essay Writing">Essay Writing</option>
+                                                <option value="Poster Making">Poster Making</option>
+                                                <option value="Drawing Contest">Drawing Contest</option>
+                                                <option value="Photography Contest">Photography Contest</option>
+                                                <option value="Cosplay Competition">Cosplay Competition</option>
+                                                <option value="Modeling Contest">Modeling Contest</option>
+                                                <option value="Cooking Contest">Cooking Contest</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
                                             <label class="form-label" for="contest-type">Contest Type</label>
                                             <select class="form-control" id="contest-type" name="contest_type" required>
                                                 <option value="" selected disabled>-- Select Contest Type --</option>
-                                                <option value="Solo">Solo</option>
-                                                <option value="Duo">Duo</option>
-                                                <option value="Group">Group</option>
                                             </select>
                                         </div>
 

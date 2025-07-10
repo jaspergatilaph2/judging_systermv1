@@ -119,5 +119,6 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
     //User Participants Routes
     Route::prefix('participants')->name('users.participants.')->group(function(){
         Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
+        Route::post('/store', [ParticipantsController::class,'store'])->name('store');
     });
 });
