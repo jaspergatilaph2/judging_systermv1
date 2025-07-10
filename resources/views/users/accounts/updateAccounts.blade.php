@@ -44,7 +44,12 @@
                                 <div data-i18n="Without menu">Participate Or Join</div>
                             </a>
                         </li>
-
+                        <li class="menu-item">
+                            <a href="{{route('users.participants.view')}}" class="menu-link">
+                                <div data-i18n="Without menu">Entries Overview
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

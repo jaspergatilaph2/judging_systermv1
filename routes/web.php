@@ -120,5 +120,8 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
     Route::prefix('participants')->name('users.participants.')->group(function(){
         Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
         Route::post('/store', [ParticipantsController::class,'store'])->name('store');
+        Route::get('/view', [ParticipantsController::class,'view'])->name('view');
+        Route::put('/view/{participants}/update', [ParticipantsController::class,'update'])->name('update');
+        Route::delete('/view/{participants}/destroy', [ParticipantsController::class, 'destroy'])->name('destroy');
     });
 });

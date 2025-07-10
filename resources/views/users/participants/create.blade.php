@@ -44,7 +44,12 @@
                                 <div data-i18n="Without menu">Participate Or Join</div>
                             </a>
                         </li>
-
+                        <li class="menu-item">
+                            <a href="{{route('users.participants.view')}}" class="menu-link">
+                                <div data-i18n="Without menu">Entries Overview
+                                </div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -246,6 +251,15 @@
                                     <small class="text-muted float-end">Default label</small>
                                 </div>
                                 <div class="card-body">
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul class="mb-0">
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li> {{-- will show: "The student id has already been taken." --}}
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
                                     <form method="POST" action="{{route('users.participants.store')}}">
                                         @csrf
 
@@ -288,7 +302,7 @@
                                         </div>
 
                                         {{-- Contest Type --}}
-                                        <div class="mb-3">
+                                         <div class="mb-3">
                                             <label class="form-label" for="contest-category">Contest Category</label>
                                             <select class="form-control" id="contest-category" name="contest_category" required onchange="updateContestTypes()">
                                                 <option value="" selected disabled>-- Select Contest Category --</option>
@@ -317,7 +331,6 @@
                                                 <option value="" selected disabled>-- Select Contest Type --</option>
                                             </select>
                                         </div>
-
                                         {{-- Submit Button --}}
                                         <button type="submit" class="btn btn-primary">Register Participant</button>
                                     </form>

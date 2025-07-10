@@ -47,6 +47,13 @@
                             </a>
                         </li>
 
+                        <li class="menu-item">
+                            <a href="{{route('users.participants.view')}}" class="menu-link">
+                                <div data-i18n="Without menu">Entries Overview
+                                </div>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -110,7 +117,7 @@
                                 <div data-i18n="Notifications">Settings</div>
                             </a>
                         </li>
-                        
+
                         <li class="menu-item">
                             <a href="{{route('users.accounts.editProfile')}}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
@@ -232,14 +239,21 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 pt-3">
-                                <div class="card">
+                                <div class="card shadow-sm">
                                     <div class="card-body">
-                                        <h5 class="card-title">TOTAL NUMBERS OF CONTESTANT</h5>
-                                        <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
-                                        <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                                            <strong style="font-size:8.5rem; text-align:center;"></strong>
+                                        <h5 class="card-title">Total Number of Contestants</h5>
+                                        <p class="card-text">
+                                            List of <span class="fw-bold text-danger">contest types and categories</span>:
+                                        </p>
+                                        <div style="max-height: 13rem; overflow-y: auto;">
+                                            <ul class="list-group list-group-flush">
+                                                @foreach($participants as $participant)
+                                                <li class="list-group-item">
+                                                    <strong>{{ $participant->contest_type }}</strong> &mdash; {{ $participant->contest_category }}
+                                                </li>
+                                                @endforeach
+                                            </ul>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>

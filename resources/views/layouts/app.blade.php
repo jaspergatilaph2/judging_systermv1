@@ -46,7 +46,7 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{asset('sneat/js/config.js')}}"></script>
     <!-- Additional script -->
-    
+
     <!-- Additional links -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{asset('sneat/css/linegraph.css')}}"> -->
@@ -59,7 +59,7 @@
     <!-- Add this in your layout's <head> section -->
     <!-- Font Awesome CDN (v6) -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    
+    <script src="{{asset('sneat/js/participantsChoices.js')}}"></script>
 </head>
 
 <body>
@@ -98,10 +98,8 @@
     <script src="{{asset('sneat/js/linegraph.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="{{asset('sneat/js/year.js')}}"></script>
-    <script src="{{asset('sneat/js/appointments-count.js')}}"></script>
     <script src="{{ asset('js/arrow_toggle.js') }}"></script>
     <script src="{{ asset('sneat/js/print.js')}}"></script>
-    <script src="{{ asset('sneat/js/doctorPrintList.js') }}"></script>
     <script src="{{ asset('sneat/js/dashboards-analytics.js') }}"></script>
 
 
@@ -109,7 +107,9 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{asset('sneat/js/addingCriteria.js')}}"></script>
-    <script src="{{asset('sneat/js/participantschoices.js')}}"></script>
+
+    
+    <script src="{{asset('sneat/js/participantsChoices.js')}}"></script>
 </body>
 
 </html>

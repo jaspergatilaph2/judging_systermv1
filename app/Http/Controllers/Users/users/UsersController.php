@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users\users;
 
 use App\Http\Controllers\Controller;
+use App\Models\Participants;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +16,8 @@ class UsersController extends Controller
      */
     public function UsersIndex()
     {
-        return view('users.dashboard.dashboard');
+        $participants = Participants::all();
+        return view('users.dashboard.dashboard', compact('participants'));
     }
 
     /**
