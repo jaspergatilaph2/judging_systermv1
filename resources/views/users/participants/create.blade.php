@@ -246,7 +246,7 @@
                                     <small class="text-muted float-end">Default label</small>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST" action="">
+                                    <form method="POST" action="{{route('users.participants.store')}}">
                                         @csrf
 
                                         {{-- Validation Errors --}}
@@ -277,9 +277,8 @@
                                                 name="student_id"
                                                 placeholder="e.g. 2010223-1"
                                                 required
-                                                pattern="\d{9,}"
-                                                minlength="9"
-                                                title="Student ID must be at least 9 digits long" />
+                                                pattern="^\d{7,}-\d{1,}$"
+                                                title="Format: at least 7 digits, a dash, then at least 1 digit (e.g. 2010223-1)" />
                                         </div>
 
                                         {{-- Participant Name --}}
