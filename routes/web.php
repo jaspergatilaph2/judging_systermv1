@@ -13,6 +13,7 @@ use App\Http\Controllers\LiveVoteController;
 use App\Http\Controllers\Admin\judges\JudgesController;
 use App\Http\Controllers\Admin\events\EventsController;
 use App\Http\Controllers\Judges\accounts\AccountsJudgeController;
+use App\Http\Controllers\Users\participants\ParticipantsController;
 use App\Http\Controllers\Users\users\UsersController;
 
 
@@ -113,5 +114,10 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
         Route::get('/editProfile', [UsersController::class, 'editProfile'])->name('editProfile'); // <-- Show form
         Route::post('/{id}/update', [UsersController::class, 'updateProfile'])->name('updateProfile'); // <-- Form action
         
+    });
+
+    //User Participants Routes
+    Route::prefix('participants')->name('users.participants.')->group(function(){
+        Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
     });
 });

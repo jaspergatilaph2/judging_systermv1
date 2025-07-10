@@ -1,31 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="{{route('users.dashboard')}}" class="app-brand-link">
+                <a href="{{ route('users.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
-                    <img src="{{asset('storage/images/slsu2.png')}}" alt="Logo" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu(BC)</span>
+                    <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
                 </a>
 
-                <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-          <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
-        </a> -->
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
             </div>
 
             <div class="menu-inner-shadow"></div>
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item active">
-                    <a href="{{route('users.dashboard')}}" class="menu-link">
+                <li class="menu-item">
+                    <a href="{{ route('users.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -33,63 +32,65 @@
 
                 <!-- Layouts -->
 
-                <li class="menu-item">
+                <li class="menu-item {{$ActiveTab === 'participants' ? 'active' : ''}}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-circle-user"></i>
                         <div data-i18n="Layouts">Participants</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{route('users.participants.participants')}}" class="menu-link">
-                                <div data-i18n="Without menu">Participate or Join
-                                </div>
+                        <li class="menu-item {{$SubActiveTab === 'Create Tab' ? 'active' : ''}}">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Participate Or Join</div>
                             </a>
                         </li>
 
                     </ul>
                 </li>
 
+                <!-- <li class="menu-item ">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fas fa-calendar-check"></i>
+                        <div data-i18n="Layouts">Events & Criteria</div>
+                    </a>
+
+                    <ul class="menu-sub">
+                        <li class="menu-item ">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without menu">Create Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">View Events</div>
+                            </a>
+                        </li>
+                        <li class="menu-item ">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Add Criteria</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
                 <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fas fa-calendar-check"></i>
-            <div data-i18n="Layouts">Events</div>
-          </a>
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon fa-solid fa-gavel"></i>
+                        <div data-i18n="Layouts">Adding Judges</div>
+                    </a>
 
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without menu">Create Events</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">View Events</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-                <!-- <li class="menu-item">
-          <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon fa-solid fa-gavel"></i>
-            <div data-i18n="Layouts">Adding Judges</div>
-          </a>
-
-          <ul class="menu-sub">
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">Judges</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without navbar">View Judges</div>
-              </a>
-            </li>
-          </ul>
-        </li> -->
-
-
+                    <ul class="menu-sub">
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">Judges</div>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="" class="menu-link">
+                                <div data-i18n="Without navbar">View Judges</div>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
 
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
@@ -101,7 +102,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{route('users.accounts.accounts')}}" class="menu-link">
+                            <a href="{{ route('users.accounts.accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
@@ -110,9 +111,8 @@
                                 <div data-i18n="Notifications">Settings</div>
                             </a>
                         </li>
-                        
                         <li class="menu-item">
-                            <a href="{{route('users.accounts.editProfile')}}" class="menu-link">
+                            <a href="{{ route('users.accounts.editProfile') }}" class="menu-link">
                                 <div data-i18n="Notifications">Update Account</div>
                             </a>
                         </li>
@@ -156,7 +156,6 @@
                     <!-- Search -->
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-
                         </div>
                     </div>
                     <!-- /Search -->
@@ -182,8 +181,9 @@
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                                                <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                                                <span class="fw-semibold d-block">{{ optional(Auth::user())->name }}
+                                                </span>
+                                                <small class="text-muted">Admin</small>
                                             </div>
                                         </div>
                                     </a>
@@ -192,9 +192,15 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{route('users.accounts.accounts')}}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
                                     </a>
                                 </li>
                                 <li>
@@ -229,45 +235,80 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 pt-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">TOTAL NUMBERS OF CONTESTANT</h5>
-                                        <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
-                                        <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                                            <strong style="font-size:8.5rem; text-align:center;"></strong>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Create/</span> Or Join</h4>
+
+                    <!-- Basic Layout -->
+                    <div class="row">
+                        <div class="col-xl">
+                            <div class="card mb-4">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Participants</h5>
+                                    <small class="text-muted float-end">Default label</small>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action="">
+                                        @csrf
+
+                                        {{-- Validation Errors --}}
+                                        @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul class="mb-0">
+                                                @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        @endif
+
+                                        {{-- Success Message --}}
+                                        @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                        @endif
+
+                                        {{-- Participant Students Id Number --}}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="participant-name">Participant Student ID</label>
+                                            <input type="text" class="form-control" id="participant-name" name="student_id" placeholder="e.g. 2010223-1" required />
                                         </div>
 
-                                    </div>
+                                        {{-- Participant Name --}}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="participant-name">Participant Name</label>
+                                            <input type="text" class="form-control" id="participant-name" name="name" placeholder="e.g. Juan Dela Cruz" required />
+                                        </div>
+
+                                        {{-- Email --}}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="participant-email">Email</label>
+                                            <input type="email" class="form-control" id="participant-email" name="email" placeholder="e.g. juan@example.com" required />
+                                        </div>
+
+                                        {{-- Age --}}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="participant-age">Age</label>
+                                            <input type="number" class="form-control" id="participant-age" name="age" placeholder="e.g. 21" min="1" required />
+                                        </div>
+
+                                        {{-- Contest Type --}}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="contest-type">Contest Type</label>
+                                            <select class="form-control" id="contest-type" name="contest_type" required>
+                                                <option value="" selected disabled>-- Select Contest Type --</option>
+                                                <option value="Solo">Solo</option>
+                                                <option value="Duo">Duo</option>
+                                                <option value="Group">Group</option>
+                                            </select>
+                                        </div>
+
+                                        {{-- Submit Button --}}
+                                        <button type="submit" class="btn btn-primary">Register Participant</button>
+                                    </form>
+
+
                                 </div>
                             </div>
-
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PENDING CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> pending</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF CONFIRMED CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> confirmed</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
                         </div>
                     </div>
                 </div>
@@ -284,7 +325,8 @@
                                 document.write(new Date().getFullYear());
                             </script>
                             , made with ❤️ by
-                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span class="fw-bold" style="color: #ff6347;">Coder</span></a>
+                            <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Jas<span
+                                    class="fw-bold" style="color: #ff6347;">Coder</span></a>
                         </div>
                         <div>
                             <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
