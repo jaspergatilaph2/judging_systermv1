@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Participants extends Model
+class Criteria extends Model
 {
-
     protected $fillable = [
-        'student_id',
-        'student_name',
+        'name',
         'contest_category',
         'contest_type',
-        'group_team'
+        'percentage'
     ];
 
-    protected $table = 'participants';
+    protected $table = 'criteria';
     use HasFactory;
 }

@@ -249,11 +249,21 @@
                                             <ul class="list-group list-group-flush">
                                                 @foreach($participants as $participant)
                                                 <li class="list-group-item">
-                                                    <strong>{{ $participant->contest_type }}</strong> &mdash; {{ $participant->contest_category }}
+                                                    <strong>{{ $participant->contest_type }}</strong> &mdash;
+                                                    {{ $participant->contest_category }}<br>
+                                                    <small>
+                                                        Group/Team:
+                                                        @if(in_array($participant->contest_type, ['Group', 'Team']) && !empty($participant->group_team))
+                                                        {{ $participant->group_team }}
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </small>
                                                 </li>
                                                 @endforeach
                                             </ul>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

@@ -302,7 +302,7 @@
                                         </div>
 
                                         {{-- Contest Type --}}
-                                         <div class="mb-3">
+                                        <div class="mb-3">
                                             <label class="form-label" for="contest-category">Contest Category</label>
                                             <select class="form-control" id="contest-category" name="contest_category" required onchange="updateContestTypes()">
                                                 <option value="" selected disabled>-- Select Contest Category --</option>
@@ -331,6 +331,8 @@
                                                 <option value="" selected disabled>-- Select Contest Type --</option>
                                             </select>
                                         </div>
+
+                                        <div id="group-name-container" class="mb-3" name="group_team"></div>
                                         {{-- Submit Button --}}
                                         <button type="submit" class="btn btn-primary">Register Participant</button>
                                     </form>

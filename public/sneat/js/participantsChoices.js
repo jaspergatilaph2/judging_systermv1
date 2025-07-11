@@ -1,8 +1,11 @@
 function updateContestTypes() {
     const category = document.getElementById("contest-category").value;
     const typeSelect = document.getElementById("contest-type");
-    typeSelect.innerHTML =
-        '<option value="" selected disabled>-- Select Contest Type --</option>';
+    const container = document.getElementById("group-name-container");
+
+    // Reset type select and group name container
+    typeSelect.innerHTML = '<option value="" selected disabled>-- Select Contest Type --</option>';
+    container.innerHTML = "";
 
     let types = [];
 
@@ -33,8 +36,6 @@ function updateContestTypes() {
         case "Cosplay Competition":
             types = ["Solo", "Group"];
             break;
-        default:
-            types = [];
     }
 
     types.forEach(function (type) {
@@ -43,13 +44,38 @@ function updateContestTypes() {
         option.textContent = type;
         typeSelect.appendChild(option);
     });
+
+    // Add change event listener (clear any existing first)
+    typeSelect.onchange = function () {
+        const selected = this.value;
+        container.innerHTML = "";
+
+        if (selected === "Group" || selected === "Team") {
+            const label = document.createElement("label");
+            label.setAttribute("for", "group-name");
+            label.className = "form-label";
+            label.textContent = "Enter Group/Team Name";
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "group_team"; // <- consistent name
+            input.id = "group-name";
+            input.className = "form-control mt-2";
+            input.placeholder = "e.g. Team Alpha";
+
+            container.appendChild(label);
+            container.appendChild(input);
+        }
+    };
 }
 
 function ContestTypes(id) {
     const category = document.getElementById("contest-category-" + id).value;
     const typeSelect = document.getElementById("contest-type-" + id);
-    typeSelect.innerHTML =
-        '<option value="" disabled selected>-- Select Contest Type --</option>';
+    const container = document.getElementById("group-name-container-" + id);
+
+    typeSelect.innerHTML = '<option value="" disabled selected>-- Select Contest Type --</option>';
+    container.innerHTML = "";
 
     let types = [];
 
@@ -88,4 +114,27 @@ function ContestTypes(id) {
         option.textContent = type;
         typeSelect.appendChild(option);
     });
+
+    // Add change event listener (reset before setting)
+    typeSelect.onchange = function () {
+        const selected = this.value;
+        container.innerHTML = "";
+
+        if (selected === "Group" || selected === "Team") {
+            const label = document.createElement("label");
+            label.setAttribute("for", "group-name-" + id);
+            label.className = "form-label";
+            label.textContent = "Enter Group/Team Name";
+
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "group_team"; // <- consistent name for Laravel
+            input.id = "group-name-" + id;
+            input.className = "form-control mt-2";
+            input.placeholder = "e.g. Team Beta";
+
+            container.appendChild(label);
+            container.appendChild(input);
+        }
+    };
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Users\participants\ParticipantsController;
 use App\Http\Controllers\Users\users\UsersController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -89,6 +90,11 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
     Route::prefix('criteria')->name('admin.criteria.')->group(function () {
         Route::get('/', [CriteriaController::class, 'index'])->name('index');
         Route::post('/store', [CriteriaController::class, 'store'])->name('store');
+    });
+
+    //View the participants routes
+    Route::prefix('participants')->name('admin.participants.')->group(function(){
+        Route::get('/', [AdminController::class, 'view'])->name('view');
     });
 });
 

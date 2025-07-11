@@ -27,7 +27,8 @@ class ParticipantsController extends Controller
             ],
             'student_name' => 'required|string|max:255',
             'contest_type' => 'required|string|max:255',
-            'contest_category' => 'required|string|max:255'
+            'contest_category' => 'required|string|max:255',
+            'group_team' => 'required|string|max:255'
         ]);
 
         $participants = Participants::create($request->all());
@@ -46,17 +47,23 @@ class ParticipantsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'student_id' => 'required|string',
-            'student_name' => 'required|string',
-            'contest_category' => 'required|string',
-            'contest_type' => 'required|string',
-        ]);
-
         $participant = Participants::findOrFail($id);
-        $participant->update($request->only(['student_id', 'student_name', 'contest_category', 'contest_type']));
 
-        return back()->with('success', 'Participant updated successfully!');
+        $participant->student_id = $request->student_id;
+        $participant->student_name = $request->student_name;
+        $participant->contest_category = $request->contest_category;
+        $participant->contest_type = $request->contest_type;
+
+        // Save group/team name only if type is Group or Team
+        if (in_array($request->contest_type, ['Group', 'Team'])) {
+            $participant->group_team = $request->group_team;
+        } else {
+            $participant->group_team = null; // clear it if it's not a group/team
+        }
+
+        $participant->save();
+
+        return redirect()->back()->with('success', 'Participant updated successfully.');
     }
 
     public function destroy($id)

@@ -259,6 +259,7 @@
                                             <th>Student Name</th>
                                             <th>Contest Type</th>
                                             <th>Contest Category</th>
+                                            <th>Group Or Team</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -270,6 +271,13 @@
                                             <td>{{ $participant->student_name }}</td>
                                             <td>{{ $participant->contest_type }}</td>
                                             <td>{{ $participant->contest_category }}</td>
+                                            <td>
+                                                @if(in_array($participant->contest_type, ['Solo', 'Individual']))
+                                                N/A
+                                                @else
+                                                {{ $participant->group_team ?? 'N/A' }}
+                                                @endif
+                                            </td>
                                             <td>
                                                 <!-- Edit Button triggers modal -->
                                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal{{ $participant->id }}">
@@ -322,6 +330,8 @@
                                                                             <option value="{{ $participant->contest_type }}" selected>{{ $participant->contest_type }}</option>
                                                                         </select>
                                                                     </div>
+
+                                                                    <div id="group-name-container-{{ $participant->id }}" class="mb-3"></div>
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
