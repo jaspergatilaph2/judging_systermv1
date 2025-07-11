@@ -16,4 +16,6 @@ class AccountsJudgeController extends Controller
             'SubActiveTab' => 'View Accounts'
         ]);
     }
+
+    
 }

@@ -41,8 +41,8 @@
 
           <ul class="menu-sub">
             <li class="menu-item">
-              <a href="" class="menu-link">
-                <div data-i18n="Without menu">Participantsls
+              <a href="{{route('judges.participants.vote')  }}" class="menu-link">
+                <div data-i18n="Without menu">Participant
                 </div>
               </a>
             </li>
@@ -187,7 +187,7 @@
                   <div class="dropdown-divider"></div>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="{{route('admin.accounts.index')}}">
+                  <a class="dropdown-item" href="{{route('judges.accounts.AccountsIndex')}}">
                     <i class="bx bx-user me-2"></i>
                     <span class="align-middle">My Profile</span>
                   </a>

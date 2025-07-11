@@ -7,7 +7,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
+                <a href="{{ route('judges.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
@@ -24,7 +24,7 @@
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
                 <li class="menu-item">
-                    <a href="{{ route('admin.dashboard') }}" class="menu-link">
+                    <a href="{{ route('judges.dashboard') }}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
@@ -32,70 +32,61 @@
 
                 <!-- Layouts -->
 
-                <li class="menu-item">
+                <li class="menu-item {{ $ActiveTab === 'view' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fa-solid fa-circle-user"></i>
-                        <div data-i18n="Layouts">Contestant</div>
+                        <div data-i18n="Layouts">Judging Panel</div>
                     </a>
 
                     <ul class="menu-sub">
-                        <li class="menu-item">
+                        <li class="menu-item {{ $SubActiveTab === 'judges' ? 'active' : '' }}">
                             <a href="" class="menu-link">
-                                <div data-i18n="Without menu">View Constestant</div>
+                                <div data-i18n="Without menu">Participant
+                                </div>
                             </a>
                         </li>
 
                     </ul>
                 </li>
 
-                <li class="menu-item {{$ActiveTab === 'events' ? 'active' : ''}}">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fas fa-calendar-check"></i>
-                        <div data-i18n="Layouts">Events & Criteria</div>
-                    </a>
+                <!-- <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fas fa-calendar-check"></i>
+            <div data-i18n="Layouts">Events</div>
+          </a>
 
-                    <ul class="menu-sub">
-                        <li class="menu-item {{ $SubActiveTab === 'create Events' ? 'active' : '' }}">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without menu">Create Events</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{route('admin.events.view')}}" class="menu-link">
-                                <div data-i18n="Without navbar">View Events</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="" class="menu-link">
-                                <div data-i18n="Without navbar">Add Criteria</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{route('admin.criteria.view')}}" class="menu-link">
-                                <div data-i18n="Without navbar">View Criteria</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-gavel"></i>
-                        <div data-i18n="Layouts">Adding Judges</div>
-                    </a>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without menu">Create Events</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">View Events</div>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+                <!-- <li class="menu-item">
+          <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon fa-solid fa-gavel"></i>
+            <div data-i18n="Layouts">Adding Judges</div>
+          </a>
 
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="{{ route('admin.judges.create') }}" class="menu-link">
-                                <div data-i18n="Without navbar">Judges</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{route('admin.judges.viewjudges')}}" class="menu-link">
-                                <div data-i18n="Without navbar">View Judges</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+          <ul class="menu-sub">
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">Judges</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">View Judges</div>
+              </a>
+            </li>
+          </ul>
+        </li> -->
 
 
 
@@ -109,20 +100,16 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="{{ route('admin.accounts.index') }}" class="menu-link">
+                            <a href="{{route('judges.accounts.AccountsIndex')}}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{ route('admin.settings.view') }}" class="menu-link">
-                                <div data-i18n="Notifications">Settings</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="{{ route('admin.accounts.editProfile') }}" class="menu-link">
-                                <div data-i18n="Notifications">Update Account</div>
-                            </a>
-                        </li>
+
+                        <!-- <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Notifications">Update Account</div>
+              </a>
+            </li> -->
                     </ul>
                 </li>
 
@@ -173,7 +160,7 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                    <img src="{{ asset('storage/' . auth()->guard('judges')->user()->image) }}" alt
                                         class="w-px-120 h-px-120 rounded-circle" />
                                 </div>
                             </a>
@@ -183,14 +170,14 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt
+                                                    <img src="{{ asset('storage/' . auth()->guard('judges')->user()->image) }}" alt
                                                         class="w-px-120 h-px-120 rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{ optional(Auth::user())->name }}
                                                 </span>
-                                                <small class="text-muted">Admin</small>
+                                                <small class="text-muted">{{ auth()->guard('judges')->check() ? 'Judge' : 'Guest' }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -199,17 +186,12 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{route('admin.accounts.index')}}">
+                                    <a class="dropdown-item" href="{{route('judges.accounts.AccountsIndex')}}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a class="dropdown-item" href="{{route('admin.settings.view')}}">
-                                        <i class="bx bx-cog me-2"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
+
                                 <li>
                                     <a class="dropdown-item" href="">
                                         <i class="menu-icon tf-icons bx bx-file"></i>
@@ -242,18 +224,18 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Add/</span> Events</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Votes/</span> Or Judge</h4>
 
                     <!-- Basic Layout -->
                     <div class="row">
                         <div class="col-xl">
                             <div class="card mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">Events</h5>
-                                    <small class="text-muted float-end">Default label</small>
+                                    <h5 class="mb-0">Judge Participant</h5>
+                                    <small class="text-muted float-end">Scoring Form</small>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('admin.events.store') }}">
+                                    <form method="POST" action="{{ route('judges.participants.storeScore') }}">
                                         @csrf
 
                                         @if ($errors->any())
@@ -273,44 +255,69 @@
                                         @endif
 
                                         <div class="mb-3">
-                                            <label class="form-label" for="events-name">Name of Event</label>
-                                            <input type="text" class="form-control" id="events-name" name="eventsName"
-                                                placeholder="Name of event..." required />
+                                            <label class="form-label" for="participant">Select Participant</label>
+                                            <select class="form-select @error('participant_id') is-invalid @enderror" id="participant" name="participant_id" required>
+                                                <option value="" selected disabled>Choose...</option>
+                                                @foreach($participants as $participant)
+                                                <option value="{{ $participant->id }}" {{ old('participant_id') == $participant->id ? 'selected' : '' }}>
+                                                    {{ $participant->student_name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            @error('participant_id')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                            @enderror
+                                        </div>
+
+                                        @if($participants->isNotEmpty())
+                                        @php
+                                        $contestType = $participants->first()->contest_type ?? 'N/A';
+                                        $contestCategory = $participants->first()->contest_category ?? 'N/A';
+                                        @endphp
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Contest Category</label>
+                                            <input type="text" class="form-control" value="{{ $contestCategory }}" readonly>
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label" for="events-description">Description of Event</label>
-                                            <input type="text" class="form-control" id="events-description" name="description"
-                                                placeholder="Description..." required />
+                                            <label class="form-label">Contest Type</label>
+                                            <input type="text" class="form-control" value="{{ $contestType }}" readonly>
                                         </div>
+                                        @endif
 
+
+                                        <hr>
+
+                                        <h6>Criteria Scores:</h6>
+                                        @foreach($criteria as $criterion)
                                         <div class="mb-3">
-                                            <label class="form-label" for="events-date">Date</label>
-                                            <input type="date" class="form-control" id="events-date" name="date" required />
+                                            <label class="form-label">{{ $criterion->name }} (Max: {{ $criterion->percentage }}%)</label>
+                                            <input type="number" class="form-control" name="scores[{{ $criterion->id }}]" min="0" max="{{ $criterion->percentage }}" step="0.01" required>
                                         </div>
+                                        @endforeach
 
-                                        <div class="mb-3">
-                                            <label class="form-label" for="events-time">Time</label>
-                                            <input type="time" class="form-control" id="events-time" name="time" required />
+                                        @if(session('totalScore'))
+                                        <div class="alert alert-info">
+                                            <strong>Total Score:</strong> {{ session('totalScore') }}
                                         </div>
+                                        @endif
 
-                                        <div class="mb-3">
-                                            <label class="form-label" for="events-time">Time Ends</label>
-                                            <input type="time" class="form-control" id="events-time" name="endtime" required />
+                                        @if(session('scorePercent'))
+                                        <div class="alert alert-info">
+                                            <strong>Percentage:</strong> {{ session('scorePercent') }}%
                                         </div>
+                                        @endif
 
-                                        <div class="mb-3">
-                                            <label class="form-label" for="event-textarea">Write an Event Here</label>
-                                            <textarea class="form-control" id="event-textarea" name="eventsText"
-                                                placeholder="Write your event here..." rows="4" required></textarea>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Save</button>
+                                        <button type="submit" class="btn btn-primary">Submit Score</button>
                                     </form>
-
                                 </div>
                             </div>
+
                         </div>
+
                     </div>
                 </div>
 

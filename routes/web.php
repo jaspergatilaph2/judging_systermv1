@@ -89,13 +89,13 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
     Route::prefix('criteria')->name('admin.criteria.')->group(function () {
         Route::get('/', [CriteriaController::class, 'index'])->name('index');
         Route::post('/store', [CriteriaController::class, 'store'])->name('store');
-        Route::get('/view', [CriteriaController::class,'view'])->name('view');
-        Route::put('/view/{criteria}/update', [CriteriaController::class,'update'])->name('update');
-        Route::delete('/view/{criteria}/destroy', [CriteriaController::class,'destroy'])->name('destroy');
+        Route::get('/view', [CriteriaController::class, 'view'])->name('view');
+        Route::put('/view/{criteria}/update', [CriteriaController::class, 'update'])->name('update');
+        Route::delete('/view/{criteria}/destroy', [CriteriaController::class, 'destroy'])->name('destroy');
     });
 
     //View the participants routes
-    Route::prefix('participants')->name('admin.participants.')->group(function(){
+    Route::prefix('participants')->name('admin.participants.')->group(function () {
         Route::get('/', [AdminController::class, 'view'])->name('view');
     });
 });
@@ -109,6 +109,12 @@ Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges']
     Route::prefix('accounts')->name('judges.accounts.')->group(function () {
         Route::get('/', [AccountsJudgeController::class, 'AccountsIndex'])->name('AccountsIndex');
     });
+
+    //Votes or to judges the performance
+    Route::prefix('participants')->name('judges.participants.')->group(function () {
+        Route::get('/vote', [JudgesController::class, 'vote'])->name('vote');
+        Route::post('/score', [JudgesController::class, 'storeScore'])->name('storeScore');
+    });
 });
 
 
@@ -121,15 +127,15 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
         Route::get('/', [UsersController::class, 'userAccounts'])->name('accounts');
         Route::get('/editProfile', [UsersController::class, 'editProfile'])->name('editProfile'); // <-- Show form
         Route::post('/{id}/update', [UsersController::class, 'updateProfile'])->name('updateProfile'); // <-- Form action
-        
+
     });
 
     //User Participants Routes
-    Route::prefix('participants')->name('users.participants.')->group(function(){
+    Route::prefix('participants')->name('users.participants.')->group(function () {
         Route::get('/', [ParticipantsController::class, 'index'])->name('participants');
-        Route::post('/store', [ParticipantsController::class,'store'])->name('store');
-        Route::get('/view', [ParticipantsController::class,'view'])->name('view');
-        Route::put('/view/{participants}/update', [ParticipantsController::class,'update'])->name('update');
+        Route::post('/store', [ParticipantsController::class, 'store'])->name('store');
+        Route::get('/view', [ParticipantsController::class, 'view'])->name('view');
+        Route::put('/view/{participants}/update', [ParticipantsController::class, 'update'])->name('update');
         Route::delete('/view/{participants}/destroy', [ParticipantsController::class, 'destroy'])->name('destroy');
     });
 });

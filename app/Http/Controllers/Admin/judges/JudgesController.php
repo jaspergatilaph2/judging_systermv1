@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Judges;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Criteria;
+use App\Models\Participants;
+use App\Models\Scores;
 
 class JudgesController extends Controller
 {
@@ -87,6 +90,56 @@ class JudgesController extends Controller
             'ActiveTab' => 'Dashboard',
             'SubActiveTab' => 'Dashboard',
             // 'judge' => $judge,
+        ]);
+    }
+
+    public function vote()
+    {
+        $participants = Participants::all();
+        $criteria = Criteria::all();
+        return view('judges.participants.votes', compact('participants', 'criteria'), [
+            'ActiveTab' => 'view',
+            'SubActiveTab' => 'judges'
+        ]);
+    }
+
+    public function storeScore(Request $request)
+    {
+        $request->validate([
+            'participant_id' => 'required|exists:participants,id',
+            'scores' => 'required|array',
+            'scores.*' => 'required|numeric|min:0'
+        ]);
+
+        // Check if this judge already judged the participant
+        $alreadyJudged = Scores::where('judge_id', auth()->id())
+            ->where('participant_id', $request->participant_id)
+            ->exists();
+
+        if ($alreadyJudged) {
+            return redirect()->back()->withErrors(['participant_id' => 'You have already judged this participant.']);
+        }
+
+        $totalScore = 0;
+
+        foreach ($request->scores as $criteriaId => $score) {
+            Scores::create([
+                'judge_id' => auth('judges')->id(),
+                'participant_id' => $request->participant_id,
+                'criteria_id' => $criteriaId,
+                'score' => $score,
+            ]);
+
+            $totalScore += $score;
+        }
+
+        $totalPossible = Criteria::whereIn('id', array_keys($request->scores))->sum('percentage');
+        $percentage = $totalPossible > 0 ? ($totalScore / $totalPossible) * 100 : 0;
+
+        return redirect()->back()->with([
+            'success' => 'Scores submitted successfully.',
+            'totalScore' => $totalScore,
+            'scorePercent' => number_format($percentage, 2),
         ]);
     }
 }

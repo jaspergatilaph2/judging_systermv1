@@ -36,7 +36,7 @@ class EventsController extends Controller
     public function view()
     {
         $events =  Events::paginate(10);
-        return view('admin.events.viewEvents', compact('events'),[
+        return view('admin.events.viewEvents', compact('events'), [
             'ActiveTab' => 'events',
             'SubActiveTab' => 'view Events'
         ]);
@@ -46,7 +46,7 @@ class EventsController extends Controller
     {
         $event = Events::findOrFail($id);
         $event->update($request->all());
-        return redirect()->route('admin.events.events')->with('success', 'Event updated successfully.');
+        return redirect()->route('admin.events.view')->with('success', 'Event updated successfully.');
     }
 
     public function destroy($id)
