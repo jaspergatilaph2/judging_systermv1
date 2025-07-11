@@ -120,7 +120,7 @@ Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges']
 
 //Contestant or Users Routes
 Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], function () {
-    Route::get('/dashboard', [UsersController::class, 'UsersIndex'])->name('users.dashboard');
+    Route::get('/dashboard', [UsersController::class, 'dashboard'])->name('users.dashboard');
 
     // User Accounts Routes
     Route::prefix('accounts')->name('users.accounts.')->group(function () {

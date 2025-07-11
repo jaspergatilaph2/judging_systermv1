@@ -232,7 +232,7 @@
                     <h5 class="card-title">TOTAL NUMBERS OF CONTESTANT</h5>
                     <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+                      <strong style="font-size:8.5rem; text-align:center;">{{ $totalParticipants }}</strong>
                     </div>
 
                   </div>

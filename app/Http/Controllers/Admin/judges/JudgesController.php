@@ -85,12 +85,12 @@ class JudgesController extends Controller
     public function dashboard()
     {
         // $judge = Auth::guard('judges')->user(); // ✅ fetch logged-in judge
-
+        $totalParticipants = Participants::count();
         return view('judges.dashboard.dashboard', [
             'ActiveTab' => 'Dashboard',
             'SubActiveTab' => 'Dashboard',
             // 'judge' => $judge,
-        ]);
+        ], compact('totalParticipants'));
     }
 
     public function vote()

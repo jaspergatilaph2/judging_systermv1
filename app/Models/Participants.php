@@ -10,6 +10,7 @@ class Participants extends Model
 
     protected $fillable = [
         'student_id',
+        'user_id',
         'student_name',
         'contest_category',
         'contest_type',
@@ -17,5 +18,11 @@ class Participants extends Model
     ];
 
     protected $table = 'participants';
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     use HasFactory;
 }

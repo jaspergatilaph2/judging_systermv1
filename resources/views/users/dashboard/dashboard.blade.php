@@ -245,28 +245,36 @@
                                         <p class="card-text">
                                             List of <span class="fw-bold text-danger">contest types and categories</span>:
                                         </p>
+
                                         <div style="max-height: 13rem; overflow-y: auto;">
                                             <ul class="list-group list-group-flush">
+                                                @php $hasNewJoins = false; @endphp
+
                                                 @foreach($participants as $participant)
+                                                @php
+                                                $typeEmpty = is_null($participant->contest_type) || trim($participant->contest_type) === '';
+                                                $categoryEmpty = is_null($participant->contest_category) || trim($participant->contest_category) === '';
+                                                @endphp
+
+                                                @if($typeEmpty && $categoryEmpty)
+                                                @php $hasNewJoins = true; @endphp
                                                 <li class="list-group-item">
-                                                    <strong>{{ $participant->contest_type }}</strong> &mdash;
-                                                    {{ $participant->contest_category }}<br>
-                                                    <small>
-                                                        Group/Team:
-                                                        @if(in_array($participant->contest_type, ['Group', 'Team']) && !empty($participant->group_team))
-                                                        {{ $participant->group_team }}
-                                                        @else
-                                                        N/A
-                                                        @endif
-                                                    </small>
+                                                    <strong>Contest Type</strong> &mdash; N/A<br>
+                                                    <strong>Contest Category</strong> &mdash; N/A<br>
+                                                    <small>Group/Team: N/A</small>
                                                 </li>
+                                                @endif
                                                 @endforeach
+
+                                                @if(!$hasNewJoins)
+                                                <li class="list-group-item text-muted">No new users have joined yet.</li>
+                                                @endif
                                             </ul>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
+
 
                             <!-- <div class="col-md-4 pt-3">
                 <div class="card">

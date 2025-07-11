@@ -137,42 +137,31 @@
                                 <p class="lead text-muted mb-4">
                                     Experience real-time voting and see results update instantly! Our Live Vote feature allows participants and audiences to cast their votes securely and transparently during any event.
                                 </p>
-                                <div class="row justify-content-center mb-4">
-                                    <div class="col-md-6">
-                                        <form>
-                                            <div class="mb-3">
-                                                <label for="voteOption" class="form-label">Choose your favorite contestant:</label>
-                                                <select class="form-select" id="voteOption" required>
-                                                    <option selected disabled value="">Select an option</option>
-                                                    <option value="1">Contestant 1</option>
-                                                    <option value="2">Contestant 2</option>
-                                                    <option value="3">Contestant 3</option>
-                                                </select>
-                                            </div>
-                                            <button type="submit" class="btn btn-success btn-lg rounded-pill px-4">
-                                                <i class="bi bi-check-circle me-2"></i>Submit Vote
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
+
+                                {{-- Live Results --}}
                                 <div class="mt-4">
-                                    <h5 class="mb-3">Live Results</h5>
+                                    <h5 class="mb-3">Live Results (Total Votes: {{ $totalVotes }})</h5>
+                                    @foreach ($votePercentages as $contestant)
                                     <div class="progress mb-2" style="height: 30px;">
-                                        <div class="progress-bar bg-primary" role="progressbar" style="width: 45%;" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
-                                            Contestant 1 - 45%
+                                        <div class="progress-bar
+    @if ($contestant['percentage'] >= 70)
+        bg-success
+    @elseif ($contestant['percentage'] >= 40)
+        bg-warning
+    @else
+        bg-danger
+    @endif"
+                                            role="progressbar"
+                                            style="width: {{ $contestant['percentage'] }}%;"
+                                            aria-valuenow="{{ $contestant['percentage'] }}"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100">
+                                            {{ $contestant['name'] }} - {{ $contestant['percentage'] }}% ({{ $contestant['score'] }} points)
                                         </div>
                                     </div>
-                                    <div class="progress mb-2" style="height: 30px;">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 35%;" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100">
-                                            Contestant 2 - 35%
-                                        </div>
-                                    </div>
-                                    <div class="progress" style="height: 30px;">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                            Contestant 3 - 20%
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
+
                                 <div class="mt-4">
                                     <small class="text-muted">
                                         Voting is secure and results are updated in real-time. For more info, contact our support team.
@@ -184,6 +173,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     {{-- Footer --}}
