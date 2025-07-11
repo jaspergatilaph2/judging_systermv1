@@ -74,6 +74,11 @@ use App\Models\logs;
                                 <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{route('admin.criteria.view')}}" class="menu-link">
+                                <div data-i18n="Without navbar">View Criteria</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item">
@@ -271,7 +276,7 @@ use App\Models\logs;
                                                 {{ $participant->group_team ?? 'N/A' }}
                                                 @endif
                                             </td>
-                                            
+
                                         </tr>
                                         @endforeach
                                     </tbody>

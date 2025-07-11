@@ -70,6 +70,11 @@
                                 <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{route('admin.criteria.view')}}" class="menu-link">
+                                <div data-i18n="Without navbar">View Criteria</div>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="menu-item">
@@ -318,7 +323,7 @@
                                             </select>
                                         </div>
 
-                                        
+
 
                                         <button type="submit" class="btn btn-primary">Save Criteria</button>
                                     </form>

@@ -52,7 +52,7 @@ use App\Models\logs;
                     </ul>
                 </li>
 
-                <li class="menu-item {{ $ActiveTab === 'events' ? 'active' : '' }}">
+                <li class="menu-item {{$ActiveTab === 'view' ? 'active' : ''}}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon fas fa-calendar-check"></i>
                         <div data-i18n="Layouts">Events & Criteria</div>
@@ -64,7 +64,7 @@ use App\Models\logs;
                                 <div data-i18n="Without menu">Create Events</div>
                             </a>
                         </li>
-                        <li class="menu-item {{$SubActiveTab === 'view Events' ? 'active' : ''}}">
+                        <li class="menu-item">
                             <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">View Events</div>
                             </a>
@@ -74,8 +74,8 @@ use App\Models\logs;
                                 <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{route('admin.criteria.view')}}" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'criteria' ? 'active' : '' }}">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Without navbar">View Criteria</div>
                             </a>
                         </li>
@@ -241,11 +241,11 @@ use App\Models\logs;
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Events /</span>History</h4>
+                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Criteria /</span>History</h4>
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h5 class="mb-0">Events History</h5>
+                            <h5 class="mb-0">Criteria History</h5>
                         </div>
 
                         <div class="card-body">
@@ -254,59 +254,52 @@ use App\Models\logs;
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Events Name</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>End Time</th>
+                                            <th>Criteria Name</th>
+                                            <th>Contest Category</th>
+                                            <th>Contest Type</th>
+                                            <th>Percentage</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $counter = ($events->currentPage() - 1) * $events->perPage() + 1; @endphp
-                                        @foreach($events as $event)
+                                        @php $counter = ($criteria->currentPage() - 1) * $criteria->perPage() + 1; @endphp
+                                        @foreach($criteria as $criterion)
                                         <tr>
                                             <td>{{ $counter++ }}</td>
-                                            <td>{{ $event->eventsName }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($event->date)->setTimezone(config('app.timezone'))->format('Y-m-d') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($event->time)->setTimezone(config('app.timezone'))->format('h:i A') }}
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($event->endtime)->setTimezone(config('app.timezone'))->format('h:i A') }}
-                                            </td>
+                                            <td>{{ $criterion->name }}</td>
+                                            <td>{{ $criterion->contest_category }}</td>
+                                            <td>{{ $criterion->contest_type }}</td>
+                                            <td>{{ $criterion->percentage }}%</td>
                                             <td>
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editEventModal{{ $event->id }}">
+                                                <!-- Edit Button -->
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editCriterionModal{{ $criterion->id }}">
                                                     <i class="fa fa-edit text-white"></i>
                                                 </button>
 
-                                                <!-- Edit Event Modal -->
-                                                <div class="modal fade" id="editEventModal{{ $event->id }}" tabindex="-1" aria-labelledby="editEventModalLabel{{ $event->id }}" aria-hidden="true">
+                                                <!-- Edit Modal -->
+                                                <div class="modal fade" id="editCriterionModal{{ $criterion->id }}" tabindex="-1" aria-labelledby="editCriterionModalLabel{{ $criterion->id }}" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
-                                                            <form action="{{ route('admin.events.update', $event->id) }}" method="POST">
+                                                            <form action="{{ route('admin.criteria.update', $criterion->id) }}" method="POST">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editEventModalLabel{{ $event->id }}">Edit Event</h5>
+                                                                    <h5 class="modal-title" id="editCriterionModalLabel{{ $criterion->id }}">Edit Criterion</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
+
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
-                                                                        <label for="eventsName{{ $event->id }}" class="form-label">Event Name</label>
-                                                                        <input type="text" class="form-control" id="eventsName{{ $event->id }}" name="eventsName" value="{{ $event->eventsName }}" required>
+                                                                        <label for="name{{ $criterion->id }}" class="form-label">Criteria Name</label>
+                                                                        <input type="text" class="form-control" id="name{{ $criterion->id }}" name="name" value="{{ $criterion->name }}" required>
                                                                     </div>
+
                                                                     <div class="mb-3">
-                                                                        <label for="date{{ $event->id }}" class="form-label">Date</label>
-                                                                        <input type="date" class="form-control" id="date{{ $event->id }}" name="date" value="{{ $event->date }}" required>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="time{{ $event->id }}" class="form-label">Start Time</label>
-                                                                        <input type="time" class="form-control" id="time{{ $event->id }}" name="time" value="{{ \Carbon\Carbon::parse($event->time)->format('H:i') }}" required>
-                                                                    </div>
-                                                                    <div class="mb-3">
-                                                                        <label for="endtime{{ $event->id }}" class="form-label">End Time</label>
-                                                                        <input type="time" class="form-control" id="endtime{{ $event->id }}" name="endtime" value="{{ \Carbon\Carbon::parse($event->endtime)->format('H:i') }}" required>
+                                                                        <label for="percentage{{ $criterion->id }}" class="form-label">Percentage</label>
+                                                                        <input type="number" class="form-control" id="percentage{{ $criterion->id }}" name="percentage" value="{{ $criterion->percentage }}" min="1" max="100" required>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                                     <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -317,7 +310,7 @@ use App\Models\logs;
                                                 </div>
 
                                                 <!-- Delete Button -->
-                                                <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" style="display:inline;">
+                                                <form action="{{ route('admin.criteria.destroy', $criterion->id) }}" method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
@@ -325,17 +318,40 @@ use App\Models\logs;
                                                     </button>
                                                 </form>
                                             </td>
-
                                         </tr>
                                         @endforeach
 
-                                        @if($events->isEmpty())
+                                        @if($criteria->isEmpty())
                                         <tr>
-                                            <td colspan="6" class="text-center text-muted">No events found.</td>
+                                            <td colspan="6" class="text-center text-muted">No criteria found.</td>
                                         </tr>
                                         @endif
                                     </tbody>
                                 </table>
+
+                                {{-- 🟦 Overall Totals Display --}}
+                                @if($groupedTotals->isNotEmpty())
+                                <div class="mb-3 mt-4">
+                                    <h5>Overall Percentages by Contest Category & Type (Year 2025):</h5>
+                                    <ul class="list-group">
+                                        @foreach($groupedTotals as $group)
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            {{ $group->contest_category }} - {{ $group->contest_type }}
+                                            <span class="px-3 py-1 text-sm font-semibold {{ $group->total_percentage > 100 ? 'bg-red-500 text-dark' : 'bg-green-500 text-dark' }} rounded-full">
+                                                {{ $group->total_percentage }}%
+                                            </span>
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @else
+                                <div class="alert alert-info">No criteria data found for 2025.</div>
+                                @endif
+
+                                <div class="d-flex justify-content-center mt-3">
+                                    {{ $criteria->links() }}
+                                </div>
+
                             </div>
 
 
@@ -344,27 +360,27 @@ use App\Models\logs;
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination pagination-m"> <!-- Added pagination-sm to make it smaller -->
                                         {{-- Previous Page Link --}}
-                                        @if ($events->onFirstPage())
+                                        @if ($criteria->onFirstPage())
                                         <li class="page-item disabled">
                                             <span class="page-link">Previous</span>
                                         </li>
                                         @else
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $events->previousPageUrl() }}">Previous</a>
+                                            <a class="page-link" href="{{ $criteria->previousPageUrl() }}">Previous</a>
                                         </li>
                                         @endif
 
                                         {{-- Page Number Links --}}
-                                        @foreach ($events->links()->elements[0] as $page => $url)
-                                        <li class="page-item {{ $events->currentPage() == $page ? 'active' : '' }}">
+                                        @foreach ($criteria->links()->elements[0] as $page => $url)
+                                        <li class="page-item {{ $criteria->currentPage() == $page ? 'active' : '' }}">
                                             <a class="page-link" href="{{ $url }}">{{ $page }}</a>
                                         </li>
                                         @endforeach
 
                                         {{-- Next Page Link --}}
-                                        @if ($events->hasMorePages())
+                                        @if ($criteria->hasMorePages())
                                         <li class="page-item">
-                                            <a class="page-link" href="{{ $events->nextPageUrl() }}">Next</a>
+                                            <a class="page-link" href="{{ $criteria->nextPageUrl() }}">Next</a>
                                         </li>
                                         @else
                                         <li class="page-item disabled">
@@ -374,6 +390,7 @@ use App\Models\logs;
                                     </ul>
                                 </nav>
                             </div>
+
                         </div>
                     </div>
 

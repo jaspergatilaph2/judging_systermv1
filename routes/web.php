@@ -15,8 +15,7 @@ use App\Http\Controllers\Admin\events\EventsController;
 use App\Http\Controllers\Judges\accounts\AccountsJudgeController;
 use App\Http\Controllers\Users\participants\ParticipantsController;
 use App\Http\Controllers\Users\users\UsersController;
-
-
+use App\Models\Criteria;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +89,9 @@ Route::group(['middleware' => ['auth:web', 'ifAdmin'], 'prefix' => 'admin'], fun
     Route::prefix('criteria')->name('admin.criteria.')->group(function () {
         Route::get('/', [CriteriaController::class, 'index'])->name('index');
         Route::post('/store', [CriteriaController::class, 'store'])->name('store');
+        Route::get('/view', [CriteriaController::class,'view'])->name('view');
+        Route::put('/view/{criteria}/update', [CriteriaController::class,'update'])->name('update');
+        Route::delete('/view/{criteria}/destroy', [CriteriaController::class,'destroy'])->name('destroy');
     });
 
     //View the participants routes
