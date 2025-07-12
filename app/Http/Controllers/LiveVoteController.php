@@ -11,31 +11,36 @@ class LiveVoteController extends Controller
 
     public function vote()
     {
-        // Count total scores (entries) from scores table
+        // Get total number of votes (score entries)
         $totalVotes = DB::table('scores')->count();
 
-        // Fetch all participants
-        $participants = DB::table('participants')->get();
+        // Join scores with criteria to apply percentage weight
+        $weightedScores = DB::table('scores')
+            ->join('criteria', 'scores.criteria_id', '=', 'criteria.id')
+            ->select(
+                'scores.participant_id',
+                DB::raw('SUM(scores.score * (criteria.percentage / 100)) as weighted_score')
+            )
+            ->groupBy('scores.participant_id')
+            ->pluck('weighted_score', 'participant_id'); // [participant_id => weighted_score]
 
-        // Sum scores grouped by participant
-        $scoresByParticipant = DB::table('scores')
-            ->select('participant_id', DB::raw('SUM(score) as total_score'))
-            ->groupBy('participant_id')
-            ->pluck('total_score', 'participant_id');
+        // Get participants who have scores
+        $participants = DB::table('participants')
+            ->whereIn('id', $weightedScores->keys())
+            ->get();
 
-        // Calculate percentages
         $votePercentages = [];
-        $sumScores = array_sum($scoresByParticipant->toArray());
 
         foreach ($participants as $participant) {
-            $score = $scoresByParticipant[$participant->id] ?? 0;
-            $percentage = $sumScores > 0 ? round(($score / $sumScores) * 100) : 0;
+            $weightedScore = $weightedScores[$participant->id] ?? 0;
 
             $votePercentages[] = [
                 'id' => $participant->id,
-                'name' => $participant->student_name,
-                'score' => $score,
-                'percentage' => $percentage,
+                'student_name' => $participant->student_name,
+                'contest_type' => $participant->contest_type,
+                'contest_category' => $participant->contest_category,
+                'score' => round($weightedScore, 2),
+                'percentage' => round($weightedScore, 2),
             ];
         }
 

@@ -141,25 +141,25 @@
                                 {{-- Live Results --}}
                                 <div class="mt-4">
                                     <h5 class="mb-3">Live Results (Total Votes: {{ $totalVotes }})</h5>
-                                    @foreach ($votePercentages as $contestant)
-                                    <div class="progress mb-2" style="height: 30px;">
-                                        <div class="progress-bar
-    @if ($contestant['percentage'] >= 70)
-        bg-success
-    @elseif ($contestant['percentage'] >= 40)
-        bg-warning
-    @else
-        bg-danger
-    @endif"
-                                            role="progressbar"
-                                            style="width: {{ $contestant['percentage'] }}%;"
-                                            aria-valuenow="{{ $contestant['percentage'] }}"
-                                            aria-valuemin="0"
-                                            aria-valuemax="100">
-                                            {{ $contestant['name'] }} - {{ $contestant['percentage'] }}% ({{ $contestant['score'] }} points)
+
+                                    @forelse ($votePercentages as $contestant)
+                                    <div class="mb-4 text-start">
+                                        <strong>{{ $contestant['student_name'] }}</strong> –
+                                        <span class="text-muted">{{ $contestant['contest_type'] }} | {{ $contestant['contest_category'] }}</span><br>
+                                        <div class="progress my-1">
+                                            <div class="progress-bar 
+                        {{ $contestant['percentage'] < 10 ? 'bg-danger' : 'bg-success' }}"
+                                                role="progressbar"
+                                                style="width: {{ $contestant['percentage'] }}%;"
+                                                aria-valuenow="{{ $contestant['percentage'] }}"
+                                                aria-valuemin="0" aria-valuemax="100">
+                                                {{ $contestant['percentage'] }}%
+                                            </div>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    @empty
+                                    <p class="text-muted">No participants available for voting yet.</p>
+                                    @endforelse
                                 </div>
 
                                 <div class="mt-4">
@@ -168,6 +168,7 @@
                                     </small>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

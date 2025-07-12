@@ -16,9 +16,9 @@ class UsersController extends Controller
      */
     public function dashboard()
     {
-        $participants = Participants::whereNotNull('contest_type')
+        $participants = Participants::where('user_id', Auth::id())->get() // Filter by the logged-in user
+            ->whereNotNull('contest_type')
             ->whereNotNull('contest_category')
-            ->get()
             ->map(function ($participant) {
                 // If it's a Group/Team and group_team is empty, set it to 'N/A'
                 if (in_array($participant->contest_type, ['Group', 'Team']) && empty($participant->group_team)) {

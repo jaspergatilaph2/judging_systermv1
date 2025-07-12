@@ -40,7 +40,7 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{route('users.participants.participants')}}" class="menu-link">
                                 <div data-i18n="Without menu">Participate Or Join</div>
                             </a>
                         </li>
@@ -109,7 +109,7 @@
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('users.accounts.accounts') }}" class="menu-link">
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>

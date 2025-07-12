@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Participants;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 
 class ParticipantsController extends Controller
 {
@@ -62,8 +63,9 @@ class ParticipantsController extends Controller
 
     public function view()
     {
-        $participants = Participants::whereNotNull('user_id')
-            ->whereHas('user') // Ensure related user exists
+        $participants = Participants::where('user_id', Auth::id()) // only logged-in user
+            ->whereNotNull('contest_type')
+            ->whereNotNull('contest_category')
             ->get();
 
         return view('users.participants.view', compact('participants'), [

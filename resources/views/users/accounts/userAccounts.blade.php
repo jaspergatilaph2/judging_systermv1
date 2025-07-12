@@ -40,7 +40,7 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('users.participants.participants') }}" class="menu-link">
                                 <div data-i18n="Without menu">Participate or Join</div>
                             </a>
                         </li>
