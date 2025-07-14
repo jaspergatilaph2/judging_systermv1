@@ -207,7 +207,7 @@ class JudgesController extends Controller
             }
         }
 
-        // ✅ PASS all variables here, including $contestCategories
+        // PASS all variables here, including $contestCategories
         return view('judges.participants.votes', [
             'contestCategories' => $contestCategories,
             'participants' => $participants,
