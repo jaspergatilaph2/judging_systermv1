@@ -1,30 +1,29 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <a href="{{route('users.dashboard')}}" class="app-brand-link">
+                <a href="{{ route('users.dashboard') }}" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
-                    <img src="{{asset('storage/images/slsu2.png')}}" alt="Logo" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu(BC)</span>
+                    <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
                 </a>
 
-                <!-- <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-          <i class="bx bx-chevron-left bx-sm d-flex align-items-center justify-content-center"></i>
-        </a> -->
+                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                </a>
             </div>
 
             <div class="menu-inner-shadow"></div>
 
             <ul class="menu-inner py-1">
                 <!-- Dashboard -->
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href="{{route('users.dashboard')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -101,7 +100,7 @@
                 <li class="menu-header small text-uppercase">
                     <span class="menu-header-text">Accounts</span>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item {{$ActiveTab === 'view' ? 'active' : '' }}">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Account Settings">Account Settings</div>
@@ -112,8 +111,8 @@
                                 <div data-i18n="Account">Account</div>
                             </a>
                         </li>
-                        <li class="menu-item">
-                            <a href="{{route('users.settings.settingsIndex')  }}" class="menu-link">
+                        <li class="menu-item {{ $SubActiveTab === 'settings' ? 'active' : '' }}">
+                            <a href="" class="menu-link">
                                 <div data-i18n="Notifications">Settings</div>
                             </a>
                         </li>
@@ -163,13 +162,17 @@
                     <!-- Search -->
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-
+                            <!-- <i class="bx bx-search fs-4 lh-0"></i>
+              <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+                aria-label="Search..." /> -->
                         </div>
                     </div>
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
                         <!-- Place this tag where you want the button to render. -->
+
+
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
@@ -190,7 +193,7 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                                                <small class="text-muted"> {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
+                                                <small class="text-muted">Admin</small>
                                             </div>
                                         </div>
                                     </a>
@@ -199,9 +202,15 @@
                                     <div class="dropdown-divider"></div>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="">
+                                    <a class="dropdown-item" href="{{route('users.accounts.accounts')}}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">My Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="">
+                                        <i class="bx bx-cog me-2"></i>
+                                        <span class="align-middle">Settings</span>
                                     </a>
                                 </li>
                                 <li>
@@ -236,66 +245,84 @@
             <div class="content-wrapper">
                 <!-- Content -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-4 pt-3">
-                                <div class="card shadow-sm">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Your Entries</h5>
-                                        <p class="card-text">
-                                            List of <span class="fw-bold text-danger">contest types and categories</span>:
-                                        </p>
+                    <!-- Navigation Tabs -->
+                    <ul class="nav nav-pills flex-column flex-md-row mb-4">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="javascript:void(0);">
+                                <i class='bx bxs-cog me-1'></i> Settings
+                            </a>
+                        </li>
+                    </ul>
 
-                                        <div style="max-height: 13rem; overflow-y: auto;">
-                                            <ul class="list-group list-group-flush">
-                                                @foreach($participants as $participant)
-                                                <li class="list-group-item">
-                                                    <strong>Contest Type</strong> &mdash; {{ $participant->contest_type }}<br>
+                    <!-- Settings Card -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <!-- Dark Mode Toggle -->
+                            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                                <div class="mb-2 mb-sm-0">
+                                    <h6 class="mb-1">Dark Mode</h6>
+                                    <small class="text-muted">Enable or disable dark mode</small>
+                                </div>
+                                <div>
+                                    <div class="form-check form-switch mb-0">
+                                        <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                                                    <strong>Contest Category</strong> &mdash; {{ $participant->contest_category }}<br>
-
-                                                    <small>
-                                                        Group/Team:
-                                                        {{ in_array($participant->contest_type, ['Group', 'Team']) ? $participant->group_team : 'N/A' }}
-                                                    </small>
-                                                </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                        <!-- <div class="card-body">
+                            
+                            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                                <div class="mb-2 mb-sm-0">
+                                    <h6 class="mb-1">Enable Judges</h6>
+                                    <small class="text-muted">Enable or disable judges</small>
+                                </div>
+                                <div>
+                                    <div class="form-check form-switch mb-0">
+                                        <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
                                     </div>
                                 </div>
                             </div>
 
 
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PENDING CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> pending</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+                        </div> -->
+
+                        <!-- <div class="card-body">
+                            
+                            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                                <div class="mb-2 mb-sm-0">
+                                    <h6 class="mb-1">Enable Contestant</h6>
+                                    <small class="text-muted">Enable or disable contestant</small>
+                                </div>
+                                <div>
+                                    <div class="form-check form-switch mb-0">
+                                        <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div> -->
+
+                        <!-- <div class="card-body">
+                           
+                            <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+                                <div class="mb-2 mb-sm-0">
+                                    <h6 class="mb-1">Enable Votes For Audience</h6>
+                                    <small class="text-muted">Enable or disable audience voting</small>
+                                </div>
+                                <div>
+                                    <div class="form-check form-switch mb-0">
+                                        <input type="checkbox" class="form-check-input dark-mode-toggle" id="darkModeSwitch" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div> -->
                     </div>
-                  </div>
                 </div>
-              </div> -->
-
-                            <!-- <div class="col-md-4 pt-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF CONFIRMED CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> confirmed</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-
-                        </div>
-                    </div>
-                </div>
-
-
                 <!-- / Content -->
 
                 <!-- Footer -->

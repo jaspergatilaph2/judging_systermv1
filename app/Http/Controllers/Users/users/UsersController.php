@@ -92,4 +92,11 @@ class UsersController extends Controller
 
         return redirect()->route('users.accounts.editProfile')->with('success', 'Profile updated successfully.');
     }
+
+    public function SettingsIndex(){
+        return view('users.settings.settings',[
+            'ActiveTab' => 'view',
+            'SubActiveTab' => 'settings'
+        ]);
+    }
 }

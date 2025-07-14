@@ -139,4 +139,10 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
         Route::put('/view/{participants}/update', [ParticipantsController::class, 'update'])->name('update');
         Route::delete('/view/{participants}/destroy', [ParticipantsController::class, 'destroy'])->name('destroy');
     });
+
+
+    // Settings Routes
+    Route::prefix('settings')->name('users.settings.')->group(function(){
+        Route::get('/', [UsersController::class, 'SettingsIndex'])->name('settingsIndex');
+    });
 });
