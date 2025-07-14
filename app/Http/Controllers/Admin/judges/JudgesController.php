@@ -95,8 +95,7 @@ class JudgesController extends Controller
 
     public function vote(Request $request)
     {
-        // List of available contest categories (for dropdown)
-        $categories = [
+        $contestCategories = [ // or $categories if you prefer, but use consistently
             "Singing Contest",
             "Dance Contest",
             "Pageant",
@@ -118,7 +117,13 @@ class JudgesController extends Controller
         // Load all participants
         $participants = Participants::all();
 
-        // Filter criteria based on selected category and type
+        // Get selected participant if set
+        $selectedParticipant = null;
+        if ($request->filled('participant_id')) {
+            $selectedParticipant = Participants::find($request->participant_id);
+        }
+
+        // Load criteria if category and type are selected
         $criteria = collect();
         if ($request->filled(['contest_category', 'contest_type'])) {
             $criteria = Criteria::where('contest_category', $request->contest_category)
@@ -126,13 +131,18 @@ class JudgesController extends Controller
                 ->get();
         }
 
-        return view('judges.participants.votes', compact('participants', 'criteria', 'categories'), [
+        return view('judges.participants.votes', [
+            'contestCategories' => $contestCategories,
+            'participants' => $participants,
+            'criteria' => $criteria,
+            'selectedParticipant' => $selectedParticipant, // ✅ pass it here
             'ActiveTab' => 'view',
             'SubActiveTab' => 'judges',
             'selectedCategory' => $request->contest_category,
             'selectedType' => $request->contest_type,
         ]);
     }
+
 
 
     public function storeScore(Request $request)
@@ -144,7 +154,7 @@ class JudgesController extends Controller
         ]);
 
         // Check if this judge already judged the participant
-        $alreadyJudged = Scores::where('judge_id', auth()->id())
+        $alreadyJudged = Scores::where('judge_id', auth('judges')->id())
             ->where('participant_id', $request->participant_id)
             ->exists();
 
@@ -177,9 +187,15 @@ class JudgesController extends Controller
 
     public function showScoreForm(Request $request)
     {
-        $participants = Participants::all();
+        $contestCategories = Participants::distinct()->pluck('contest_category');
+
+        $participants = collect();
         $selectedParticipant = null;
         $criteria = collect();
+
+        if ($request->filled('contest_category')) {
+            $participants = Participants::where('contest_category', $request->contest_category)->get();
+        }
 
         if ($request->filled('participant_id')) {
             $selectedParticipant = Participants::find($request->participant_id);
@@ -191,7 +207,12 @@ class JudgesController extends Controller
             }
         }
 
-        return view('judges.participants.votes', compact('participants', 'criteria', 'selectedParticipant'), [
+        // ✅ PASS all variables here, including $contestCategories
+        return view('judges.participants.votes', [
+            'contestCategories' => $contestCategories,
+            'participants' => $participants,
+            'selectedParticipant' => $selectedParticipant,
+            'criteria' => $criteria,
             'ActiveTab' => 'view',
             'SubActiveTab' => 'judges',
             'selectedCategory' => $request->contest_category,

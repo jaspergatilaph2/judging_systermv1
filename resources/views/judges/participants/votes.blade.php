@@ -235,45 +235,71 @@
                                     <small class="text-muted float-end">Scoring Form</small>
                                 </div>
                                 <div class="card-body">
+                                    {{-- Display validation errors --}}
                                     @if ($errors->any())
                                     <div class="alert alert-danger">
-                                        <ul>
+                                        <ul class="mb-0">
                                             @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
                                             @endforeach
                                         </ul>
                                     </div>
                                     @endif
+
+                                    {{-- Success message --}}
                                     @if(session('success'))
                                     <div class="alert alert-success">{{ session('success') }}</div>
                                     @endif
+
+                                    {{-- Total score info --}}
                                     @if(session('totalScore'))
                                     <div class="alert alert-info">
                                         <strong>Total Score:</strong> {{ session('totalScore') }}
                                     </div>
                                     @endif
 
+                                    {{-- Percentage info --}}
                                     @if(session('scorePercent'))
                                     <div class="alert alert-info">
                                         <strong>Percentage:</strong> {{ session('scorePercent') }}%
                                     </div>
                                     @endif
 
+                                    {{-- Category selection --}}
                                     <form method="GET" action="{{ route('judges.participants.scoreForm') }}">
                                         <div class="mb-3">
-                                            <label class="form-label" for="participant">Select Participant</label>
-                                            <select class="form-select" id="participant" name="participant_id" onchange="this.form.submit()" required>
-                                                <option value="" selected disabled>Choose...</option>
-                                                @foreach($participants as $participant)
-                                                <option value="{{ $participant->id }}" {{ request('participant_id') == $participant->id ? 'selected' : '' }}>
-                                                    {{ $participant->student_name }}
+                                            <label class="form-label" for="contest_category">Select Contest Category</label>
+                                            <select name="contest_category" id="contest_category" class="form-select" onchange="this.form.submit()" required>
+                                                <option value="" disabled {{ request('contest_category') ? '' : 'selected' }}>Choose Category...</option>
+                                                @foreach($contestCategories as $category)
+                                                <option value="{{ $category }}" {{ request('contest_category') == $category ? 'selected' : '' }}>
+                                                    {{ $category }}
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </form>
 
-                                    @if(isset($selectedParticipant))
+                                    {{-- Participant selection (only if category is selected and has participants) --}}
+                                    @if(request('contest_category') && $participants->count())
+                                    <form method="GET" action="{{ route('judges.participants.scoreForm') }}">
+                                        <input type="hidden" name="contest_category" value="{{ request('contest_category') }}">
+                                        <div class="mb-3">
+                                            <label class="form-label">Select Participant</label>
+                                            <select name="participant_id" class="form-select" onchange="this.form.submit()" required>
+                                                <option value="" disabled {{ request('participant_id') ? '' : 'selected' }}>Choose Participant...</option>
+                                                @foreach($participants as $participant)
+                                                <option value="{{ $participant->id }}" {{ request('participant_id') == $participant->id ? 'selected' : '' }}>
+                                                    {{ $participant->student_name }} ({{ $participant->contest_type }})
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </form>
+                                    @endif
+
+                                    {{-- Scoring form (only if a participant is selected) --}}
+                                    @if($selectedParticipant)
                                     <form method="POST" action="{{ route('judges.participants.storeScore') }}">
                                         @csrf
 
@@ -290,21 +316,26 @@
                                         </div>
 
                                         <hr>
-                                        <h6>Criteria Scores:</h6>
+                                        <h6 class="fw-bold">Criteria Scores:</h6>
+
                                         @foreach($criteria as $criterion)
                                         <div class="mb-3">
                                             <label class="form-label">{{ $criterion->name }} (Max: {{ $criterion->percentage }}%)</label>
-                                            <input type="number" class="form-control"
+                                            <input type="number"
                                                 name="scores[{{ $criterion->id }}]"
-                                                min="0" max="{{ $criterion->percentage }}" step="0.01" required>
+                                                class="form-control"
+                                                min="0"
+                                                max="{{ $criterion->percentage }}"
+                                                step="0.01"
+                                                required>
                                         </div>
                                         @endforeach
 
-                                        <button type="submit" class="btn btn-primary">Submit Score</button>
+                                        <button type="submit" class="btn btn-success">Submit Score</button>
                                     </form>
                                     @endif
-
                                 </div>
+
                             </div>
 
                         </div>

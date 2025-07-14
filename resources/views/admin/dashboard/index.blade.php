@@ -87,7 +87,7 @@
           <ul class="menu-sub">
             <li class="menu-item">
               <a href="{{ route('admin.judges.create') }}" class="menu-link">
-                <div data-i18n="Without navbar">Judges</div>
+                <div data-i18n="Without navbar">Add Judges</div>
               </a>
             </li>
             <li class="menu-item">
