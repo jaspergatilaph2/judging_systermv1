@@ -260,6 +260,7 @@
                                             <th>Contest Type</th>
                                             <th>Contest Category</th>
                                             <th>Group Or Team</th>
+                                            <th>Duo Name</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -279,6 +280,13 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if (in_array($participant->duo_name, ['duo_name']))
+                                                N/A
+                                                @else
+                                                {{ $participant->duo_name ?? 'N/A'}}
+                                                @endif
+                                            </td>
+                                            <td>
                                                 <!-- Edit Button triggers modal -->
                                                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal{{ $participant->id }}">
                                                     <i class="fa fa-user-edit"></i>
@@ -292,21 +300,24 @@
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editModalLabel{{ $participant->id }}">Edit Participants</h5>
+                                                                    <h5 class="modal-title" id="editModalLabel{{ $participant->id }}">Edit Participant</h5>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
+
                                                                 <div class="modal-body">
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Student ID</label>
                                                                         <input type="text" class="form-control" name="student_id" value="{{ $participant->student_id }}" required>
                                                                     </div>
+
                                                                     <div class="mb-3">
                                                                         <label class="form-label">Student Name</label>
-                                                                        <input type="text" class="form-control" name="student_name" value="{{ $participant->student_name }}">
+                                                                        <input type="text" class="form-control" name="student_name" value="{{ $participant->student_name }}" required>
                                                                     </div>
+
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="contest-category-{{ $participant->id }}">Contest Category</label>
-                                                                        <select class="form-control" id="contest-category-{{ $participant->id }}" name="contest_category" required onchange="ContestTypes({{ $participant->id }})">
+                                                                        <select class="form-control" id="contest-category-{{ $participant->id }}" name="contest_category" required onchange="ContestTypes('')">
                                                                             <option value="" disabled>-- Select Contest Category --</option>
                                                                             @php
                                                                             $categories = [
@@ -325,19 +336,54 @@
 
                                                                     <div class="mb-3">
                                                                         <label class="form-label" for="contest-type-{{ $participant->id }}">Contest Type</label>
-                                                                        <select class="form-control" id="contest-type-{{ $participant->id }}" name="contest_type" required>
+                                                                        <select class="form-control" id="contest-type-{{ $participant->id }}" name="contest_type" required onchange="ContestTypes('{{ $participant->id }}')">
                                                                             <option value="" disabled>-- Select Contest Type --</option>
-                                                                            <option value="{{ $participant->contest_type }}" selected>{{ $participant->contest_type }}</option>
+                                                                            @php
+                                                                            $typesByCategory = [
+                                                                            "Singing Contest" => ["Solo", "Duo", "Group"],
+                                                                            "Dance Contest" => ["Solo", "Duo", "Group"],
+                                                                            "Talent Show" => ["Solo", "Duo", "Group"],
+                                                                            "Battle of the Bands" => ["Solo", "Duo", "Group"],
+                                                                            "Pageant" => ["Individual"],
+                                                                            "Mr. & Ms. Contest" => ["Individual"],
+                                                                            "Modeling Contest" => ["Individual"],
+                                                                            "Spoken Word / Poetry" => ["Individual"],
+                                                                            "Quiz Bee" => ["Individual", "Team"],
+                                                                            "Debate" => ["Individual", "Team"],
+                                                                            "Essay Writing" => ["Individual"],
+                                                                            "Poster Making" => ["Individual"],
+                                                                            "Drawing Contest" => ["Individual"],
+                                                                            "Photography Contest" => ["Individual"],
+                                                                            "Cooking Contest" => ["Individual"],
+                                                                            "Cosplay Competition" => ["Solo", "Group"]
+                                                                            ];
+                                                                            $selectedTypes = $typesByCategory[$participant->contest_category] ?? [];
+                                                                            @endphp
+                                                                            @foreach ($selectedTypes as $type)
+                                                                            <option value="{{ $type }}" {{ $participant->contest_type === $type ? 'selected' : '' }}>
+                                                                                {{ $type }}
+                                                                            </option>
+                                                                            @endforeach
                                                                         </select>
                                                                     </div>
 
-                                                                    <div id="group-name-container-{{ $participant->id }}" class="mb-3"></div>
+                                                                    <div id="group-name-container-{{ $participant->id }}" class="mb-3">
+                                                                        @if ($participant->contest_type === 'Group' || $participant->contest_type === 'Team')
+                                                                        <label class="form-label" for="group-name-{{ $participant->id }}">Enter Group/Team Name</label>
+                                                                        <input type="text" name="group_team" id="group-name-{{ $participant->id }}" class="form-control mt-2" value="{{ $participant->group_team }}" placeholder="e.g. Team Alpha">
+                                                                        @elseif ($participant->contest_type === 'Duo')
+                                                                        <label class="form-label" for="duo-name-{{ $participant->id }}">Enter Duo Name</label>
+                                                                        <input type="text" name="duo_name" id="duo-name-{{ $participant->id }}" class="form-control mt-2" value="{{ $participant->duo_name }}" placeholder="e.g. John & Jane">
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
+
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                                                 </div>
                                                             </form>
+
                                                         </div>
                                                     </div>
                                                 </div>

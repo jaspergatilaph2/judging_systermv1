@@ -93,15 +93,47 @@ class JudgesController extends Controller
         ], compact('totalParticipants'));
     }
 
-    public function vote()
+    public function vote(Request $request)
     {
+        // List of available contest categories (for dropdown)
+        $categories = [
+            "Singing Contest",
+            "Dance Contest",
+            "Pageant",
+            "Quiz Bee",
+            "Debate",
+            "Mr. & Ms. Contest",
+            "Talent Show",
+            "Battle of the Bands",
+            "Spoken Word / Poetry",
+            "Essay Writing",
+            "Poster Making",
+            "Drawing Contest",
+            "Photography Contest",
+            "Cosplay Competition",
+            "Modeling Contest",
+            "Cooking Contest"
+        ];
+
+        // Load all participants
         $participants = Participants::all();
-        $criteria = Criteria::all();
-        return view('judges.participants.votes', compact('participants', 'criteria'), [
+
+        // Filter criteria based on selected category and type
+        $criteria = collect();
+        if ($request->filled(['contest_category', 'contest_type'])) {
+            $criteria = Criteria::where('contest_category', $request->contest_category)
+                ->where('contest_type', $request->contest_type)
+                ->get();
+        }
+
+        return view('judges.participants.votes', compact('participants', 'criteria', 'categories'), [
             'ActiveTab' => 'view',
-            'SubActiveTab' => 'judges'
+            'SubActiveTab' => 'judges',
+            'selectedCategory' => $request->contest_category,
+            'selectedType' => $request->contest_type,
         ]);
     }
+
 
     public function storeScore(Request $request)
     {
@@ -140,6 +172,30 @@ class JudgesController extends Controller
             'success' => 'Scores submitted successfully.',
             'totalScore' => $totalScore,
             'scorePercent' => number_format($percentage, 2),
+        ]);
+    }
+
+    public function showScoreForm(Request $request)
+    {
+        $participants = Participants::all();
+        $selectedParticipant = null;
+        $criteria = collect();
+
+        if ($request->filled('participant_id')) {
+            $selectedParticipant = Participants::find($request->participant_id);
+
+            if ($selectedParticipant) {
+                $criteria = Criteria::where('contest_category', $selectedParticipant->contest_category)
+                    ->where('contest_type', $selectedParticipant->contest_type)
+                    ->get();
+            }
+        }
+
+        return view('judges.participants.votes', compact('participants', 'criteria', 'selectedParticipant'), [
+            'ActiveTab' => 'view',
+            'SubActiveTab' => 'judges',
+            'selectedCategory' => $request->contest_category,
+            'selectedType' => $request->contest_type,
         ]);
     }
 }

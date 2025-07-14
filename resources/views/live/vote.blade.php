@@ -140,7 +140,7 @@
 
                                 {{-- Live Results --}}
                                 <div class="mt-4">
-                                    <h5 class="mb-3">Live Results (Total Votes: {{ $totalVotes }})</h5>
+                                    <h5 class="mb-3">Live Results</h5>
 
                                     @forelse ($votePercentages as $contestant)
                                     <div class="mb-4 text-start">

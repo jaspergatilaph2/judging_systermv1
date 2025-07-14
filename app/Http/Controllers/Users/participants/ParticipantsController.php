@@ -19,6 +19,8 @@ class ParticipantsController extends Controller
     }
 
 
+    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -30,19 +32,27 @@ class ParticipantsController extends Controller
             'student_name' => 'required|string|max:255',
             'contest_type' => 'required|string|max:255',
             'contest_category' => 'required|string|max:255',
+
+            // group_team required only for Group or Team
             'group_team' => [
                 Rule::requiredIf(function () use ($request) {
-                    return !in_array(strtolower($request->contest_type), ['solo', 'individual']);
+                    return in_array(strtolower($request->contest_type), ['group', 'team']);
                 }),
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
+            // duo_name required only for Duo
+            'duo_name' => [
+                Rule::requiredIf(function () use ($request) {
+                    return strtolower($request->contest_type) === 'Duo';
+                }),
+                'nullable',
                 'string',
                 'max:255',
             ],
         ]);
-
-        // If solo or individual, set group_team to null
-        $groupTeam = in_array(strtolower($request->contest_type), ['solo', 'individual'])
-            ? null
-            : $request->group_team;
 
         if (!auth()->check()) {
             return redirect()->back()->withErrors(['error' => 'You must be logged in.']);
@@ -53,13 +63,15 @@ class ParticipantsController extends Controller
             'student_name' => $request->student_name,
             'contest_type' => $request->contest_type,
             'contest_category' => $request->contest_category,
-            'group_team' => $groupTeam,
-            'user_id' => auth()->user()->id, // ✅ correct column name and value
+            'group_team' => in_array(strtolower($request->contest_type), ['group', 'team']) ? $request->group_team : null,
+            'duo_name' => strtolower($request->contest_type) === 'Duo' ? $request->duo_name : null,
+            'user_id' => auth()->user()->id,
         ]);
 
         return redirect()->route('users.participants.participants', compact('participants'))
             ->with('success', 'Participant created successfully!');
     }
+
 
     public function view()
     {
@@ -88,6 +100,12 @@ class ParticipantsController extends Controller
             $participant->group_team = $request->group_team;
         } else {
             $participant->group_team = null; // clear it if it's not a group/team
+        }
+
+        if ($request->contest_type === 'Duo') {
+            $participant->duo_name = $request->duo_name;
+        } else {
+            $participant->duo_name = null;
         }
 
         $participant->save();

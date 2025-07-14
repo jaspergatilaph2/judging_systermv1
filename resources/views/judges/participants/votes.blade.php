@@ -235,84 +235,75 @@
                                     <small class="text-muted float-end">Scoring Form</small>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST" action="{{ route('judges.participants.storeScore') }}">
-                                        @csrf
+                                    @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @endif
+                                    @if(session('success'))
+                                    <div class="alert alert-success">{{ session('success') }}</div>
+                                    @endif
+                                    @if(session('totalScore'))
+                                    <div class="alert alert-info">
+                                        <strong>Total Score:</strong> {{ session('totalScore') }}
+                                    </div>
+                                    @endif
 
-                                        @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                        @endif
+                                    @if(session('scorePercent'))
+                                    <div class="alert alert-info">
+                                        <strong>Percentage:</strong> {{ session('scorePercent') }}%
+                                    </div>
+                                    @endif
 
-                                        @if(session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                        @endif
-
+                                    <form method="GET" action="{{ route('judges.participants.scoreForm') }}">
                                         <div class="mb-3">
                                             <label class="form-label" for="participant">Select Participant</label>
-                                            <select class="form-select @error('participant_id') is-invalid @enderror" id="participant" name="participant_id" required>
+                                            <select class="form-select" id="participant" name="participant_id" onchange="this.form.submit()" required>
                                                 <option value="" selected disabled>Choose...</option>
                                                 @foreach($participants as $participant)
-                                                <option value="{{ $participant->id }}" {{ old('participant_id') == $participant->id ? 'selected' : '' }}>
+                                                <option value="{{ $participant->id }}" {{ request('participant_id') == $participant->id ? 'selected' : '' }}>
                                                     {{ $participant->student_name }}
                                                 </option>
                                                 @endforeach
                                             </select>
-                                            @error('participant_id')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
                                         </div>
+                                    </form>
 
-                                        @if($participants->isNotEmpty())
-                                        @php
-                                        $contestType = $participants->first()->contest_type ?? 'N/A';
-                                        $contestCategory = $participants->first()->contest_category ?? 'N/A';
-                                        @endphp
+                                    @if(isset($selectedParticipant))
+                                    <form method="POST" action="{{ route('judges.participants.storeScore') }}">
+                                        @csrf
+
+                                        <input type="hidden" name="participant_id" value="{{ $selectedParticipant->id }}">
 
                                         <div class="mb-3">
                                             <label class="form-label">Contest Category</label>
-                                            <input type="text" class="form-control" value="{{ $contestCategory }}" readonly>
+                                            <input type="text" class="form-control" value="{{ $selectedParticipant->contest_category }}" readonly>
                                         </div>
 
                                         <div class="mb-3">
                                             <label class="form-label">Contest Type</label>
-                                            <input type="text" class="form-control" value="{{ $contestType }}" readonly>
+                                            <input type="text" class="form-control" value="{{ $selectedParticipant->contest_type }}" readonly>
                                         </div>
-                                        @endif
-
 
                                         <hr>
-
                                         <h6>Criteria Scores:</h6>
                                         @foreach($criteria as $criterion)
                                         <div class="mb-3">
                                             <label class="form-label">{{ $criterion->name }} (Max: {{ $criterion->percentage }}%)</label>
-                                            <input type="number" class="form-control" name="scores[{{ $criterion->id }}]" min="0" max="{{ $criterion->percentage }}" step="0.01" required>
+                                            <input type="number" class="form-control"
+                                                name="scores[{{ $criterion->id }}]"
+                                                min="0" max="{{ $criterion->percentage }}" step="0.01" required>
                                         </div>
                                         @endforeach
 
-                                        @if(session('totalScore'))
-                                        <div class="alert alert-info">
-                                            <strong>Total Score:</strong> {{ session('totalScore') }}
-                                        </div>
-                                        @endif
-
-                                        @if(session('scorePercent'))
-                                        <div class="alert alert-info">
-                                            <strong>Percentage:</strong> {{ session('scorePercent') }}%
-                                        </div>
-                                        @endif
-
                                         <button type="submit" class="btn btn-primary">Submit Score</button>
                                     </form>
+                                    @endif
+
                                 </div>
                             </div>
 

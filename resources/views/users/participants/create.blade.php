@@ -296,9 +296,19 @@
                                         </div>
 
                                         {{-- Participant Name --}}
+                                        @php
+                                        use Illuminate\Support\Facades\Auth;
+                                        @endphp
+
                                         <div class="mb-3">
                                             <label class="form-label" for="participant-name">Participant Name</label>
-                                            <input type="text" class="form-control" id="participant-name" name="student_name" placeholder="e.g. Juan Dela Cruz" required />
+                                            <input type="text"
+                                                class="form-control"
+                                                id="participant-name"
+                                                name="student_name"
+                                                placeholder="e.g. Juan Dela Cruz"
+                                                value="{{ Auth::user()->name }}"
+                                                required />
                                         </div>
 
                                         {{-- Contest Type --}}

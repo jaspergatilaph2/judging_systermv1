@@ -108,7 +108,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{asset('sneat/js/addingCriteria.js')}}"></script>
 
-    
+
     <script src="{{asset('sneat/js/participantsChoices.js')}}"></script>
     <script src="{{asset('sneat/js/adminCriteriaContestType.js')}}"></script>
 </body>

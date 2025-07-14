@@ -14,7 +14,8 @@ class Participants extends Model
         'student_name',
         'contest_category',
         'contest_type',
-        'group_team'
+        'group_team',
+        'duo_name'
     ];
 
     protected $table = 'participants';

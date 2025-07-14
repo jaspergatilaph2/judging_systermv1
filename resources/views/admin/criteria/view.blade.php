@@ -348,9 +348,9 @@ use App\Models\logs;
                                 <div class="alert alert-info">No criteria data found for 2025.</div>
                                 @endif
 
-                                <div class="d-flex justify-content-center mt-3">
+                                <!-- <div class="d-flex justify-content-center mt-3">
                                     {{ $criteria->links() }}
-                                </div>
+                                </div> -->
 
                             </div>
 
@@ -359,17 +359,7 @@ use App\Models\logs;
                             <div class="d-flex justify-content-center mt-3">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination pagination-m"> <!-- Added pagination-sm to make it smaller -->
-                                        {{-- Previous Page Link --}}
-                                        @if ($criteria->onFirstPage())
-                                        <li class="page-item disabled">
-                                            <span class="page-link">Previous</span>
-                                        </li>
-                                        @else
-                                        <li class="page-item">
-                                            <a class="page-link" href="{{ $criteria->previousPageUrl() }}">Previous</a>
-                                        </li>
-                                        @endif
-
+                                        
                                         {{-- Page Number Links --}}
                                         @foreach ($criteria->links()->elements[0] as $page => $url)
                                         <li class="page-item {{ $criteria->currentPage() == $page ? 'active' : '' }}">
