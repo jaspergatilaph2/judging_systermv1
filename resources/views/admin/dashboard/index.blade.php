@@ -249,36 +249,73 @@
               <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> appointments</p>
+                    <h5 class="card-title">TOTAL NUMBERS OF PARTICIPANTS</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> participants</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+                      <strong style="font-size:8.5rem; text-align:center;">{{ $totalParticipants }}</strong>
                     </div>
 
                   </div>
                 </div>
               </div>
-
+              <!-- Inputted -->
               <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF PENDING CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> pending</p>
+                    <h5 class="card-title">TOTAL NUMBERS OF JUDGES INPUTTED</h5>
+                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> judges</p>
                     <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+                      <strong style="font-size:8.5rem; text-align:center;">{{ $totalJudges }}</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Joined -->
+              <div class="col-md-4 pt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
+                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:10rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">
+                        {{ $joinedCategoryCount }}
+                      </strong>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div class="col-md-4 pt-3">
+              <!-- Kind of contest category have been joined -->
+              <!-- <div class="col-md-4 pt-3">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title">TOTAL NUMBERS OF CONFIRMED CONTESTANT</h5>
-                    <p class="card-text">Here the <span class="fw-bold" style="color: #ff6347;">total</span> confirmed</p>
-                    <div style="display: flex; justify-content: center; align-items: center; height:13rem;">
-                      <strong style="font-size:8.5rem; text-align:center;"></strong>
+                    <h5 class="card-title">TOTAL NUMBER OF CONTEST CATEGORIES JOINED</h5>
+                    <p class="card-text">Number of distinct <span class="fw-bold" style="color: #ff6347;">contest categories</span> joined by participants</p>
+                    <div style="display: flex; justify-content: center; align-items: center; height:11rem;">
+                      <strong style="font-size:8.5rem; text-align:center;">
+                        {{ $joinedCategoryCount }}
+                      </strong>
                     </div>
+                  </div>
+                </div>
+              </div> -->
+              <!-- No comment yet -->
+              
+              <!-- List of categories and counts -->
+              <div class="col-md-8 pt-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Breakdown by Contest Category</h5>
+                    <ul class="list-group">
+                      @forelse($categoryCounts as $item)
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ $item->contest_category }}
+                        <span class="text-primary fw-bold">{{ $item->total }} joined</span>
+                      </li>
+                      @empty
+                      <li class="list-group-item">No categories joined yet.</li>
+                      @endforelse
+                    </ul>
                   </div>
                 </div>
               </div>

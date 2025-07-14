@@ -11,7 +11,7 @@
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu (BC)</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -86,7 +86,7 @@
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="{{ route('admin.judges.create') }}" class="menu-link">
-                                <div data-i18n="Without navbar">Judges</div>
+                                <div data-i18n="Without navbar">Add Judges</div>
                             </a>
                         </li>
                         <li class="menu-item">

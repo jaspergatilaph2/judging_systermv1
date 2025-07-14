@@ -11,7 +11,7 @@
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">SLSU (BC)</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -56,17 +56,17 @@
 
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.events.events') }}" class="menu-link">
                                 <div data-i18n="Without menu">Create Events</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.events.view') }}" class="menu-link">
                                 <div data-i18n="Without navbar">View Events</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.criteria.index') }}" class="menu-link">
                                 <div data-i18n="Without navbar">Add Criteria</div>
                             </a>
                         </li>
@@ -86,7 +86,7 @@
                     <ul class="menu-sub">
                         <li class="menu-item">
                             <a href="{{ route('admin.judges.create') }}" class="menu-link">
-                                <div data-i18n="Without navbar">Judges</div>
+                                <div data-i18n="Without navbar">Add Judges</div>
                             </a>
                         </li>
                         <li class="menu-item">

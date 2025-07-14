@@ -15,7 +15,7 @@ use App\Models\logs;
                     <span class="app-brand-logo demo"></span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
                     <span class="app-brand-text demo menu-text fw-bolder ms-2"
-                        style="text-transform:uppercase">SLSU</span>
+                        style="text-transform:uppercase">SLSU (BC)</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -65,7 +65,7 @@ use App\Models\logs;
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="" class="menu-link">
+                            <a href="{{ route('admin.events.view') }}" class="menu-link">
                                 <div data-i18n="Without navbar">View Events</div>
                             </a>
                         </li>

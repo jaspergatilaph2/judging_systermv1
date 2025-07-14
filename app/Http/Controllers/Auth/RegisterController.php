@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+     protected $redirectTo = '/home';
 
     /**
      * Create a new controller instance.
@@ -71,8 +71,8 @@ class RegisterController extends Controller
         ]);
     }
 
-    // protected function redirectTo()
-    // {
-    //     return '/users/dashboard';
-    // }
+    protected function redirectTo()
+    {
+        return '/users/dashboard';
+    }
 }
