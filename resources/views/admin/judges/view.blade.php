@@ -277,7 +277,7 @@
                                             <td>{{ $judge->phone }}</td>
                                             <td>
                                                 @if($judge->image)
-                                                <img src="{{ asset('judges_images/' . $judge->image) }}" alt="Judge Image" width="100" height="100">
+                                                <img src="{{ asset('storage/' . $judge->image) }}" alt="Judge Image" width="100" height="100">
                                                 @else
                                                 <span class="text-muted">No Image</span>
                                                 @endif

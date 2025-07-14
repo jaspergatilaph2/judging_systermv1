@@ -84,28 +84,29 @@ class JudgesController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:judges,email,' . $id,
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // Add other fields if needed
         ]);
 
         // Handle image upload if present
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('judges_images'), $imageName);
 
-            // Update the image field in the judge model
-            $judge->image = $imageName;
+            // Store in storage/app/public/judges_images
+            $image->storeAs('public/judges_images', $imageName);
+
+            // Save relative path to database
+            $judge->image = 'judges_images/' . $imageName;
         }
 
         // Update other fields
         $judge->name = $request->name;
         $judge->email = $request->email;
-        // Add more fields if needed
 
         $judge->save();
 
         return redirect()->route('admin.judges.viewjudges')->with('success', 'Judge updated successfully.');
     }
+
 
     public function dashboard()
     {
@@ -242,6 +243,27 @@ class JudgesController extends Controller
             'SubActiveTab' => 'judges',
             'selectedCategory' => $request->contest_category,
             'selectedType' => $request->contest_type,
+        ]);
+    }
+
+    public function viewScores()
+    {
+        $judge = Judges::with('scores.participant')->find(Auth::id());
+
+        if (!$judge) {
+            abort(403, 'Unauthorized or judge not found.');
+        }
+
+        // Group scores by participant
+        $grouped = $judge->scores->groupBy('participant_id')->map(function ($scores) {
+            return $scores->sum('score'); // total score for each participant
+        });
+
+        $judge->participantScores = $grouped;
+
+        return view('judges.viewScore.views', compact('judge'),[
+            'ActiveTab' => 'view',
+            'SubActiveTab' => 'scores'
         ]);
     }
 }

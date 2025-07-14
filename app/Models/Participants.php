@@ -25,5 +25,9 @@ class Participants extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scores()
+    {
+        return $this->hasMany(Scores::class, 'participant_id');
+    }
     use HasFactory;
 }

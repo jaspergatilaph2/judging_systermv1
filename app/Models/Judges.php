@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,11 @@ class Judges extends Authenticatable
         'password',
         'image',
     ];
+
+    public function scores()
+    {
+        return $this->hasMany(Scores::class, 'judge_id');
+    }
 
     protected $table = 'judges';
     // public $timestamps = false; 

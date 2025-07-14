@@ -46,7 +46,12 @@
                 </div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="{{ route('judges.participants.views') }}" class="menu-link">
+                <div data-i18n="Without menu">View Scores
+                </div>
+              </a>
+            </li>
           </ul>
         </li>
 

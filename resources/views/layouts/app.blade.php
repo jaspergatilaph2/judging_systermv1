@@ -113,6 +113,7 @@
 
     <script src="{{asset('sneat/js/participantsChoices.js')}}"></script>
     <script src="{{asset('sneat/js/adminCriteriaContestType.js')}}"></script>
+    <script src="{{ asset('sneat/js/reload.js') }}"></script>
 </body>
 
 </html>

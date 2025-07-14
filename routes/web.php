@@ -115,6 +115,8 @@ Route::group(['middleware' => ['auth:judges', 'Ifjudges'], 'prefix' => 'judges']
         Route::get('/vote', [JudgesController::class, 'vote'])->name('vote');
         Route::post('/score', [JudgesController::class, 'storeScore'])->name('storeScore');
         Route::get('/score-form', [JudgesController::class, 'showScoreForm'])->name('scoreForm');
+        Route::get('/views', [JudgesController::class, 'viewScores'])->name('views');
+        Route::get('/view/{scores}', [JudgesController::class, 'JudgesScores'])->name('details');
     });
 });
 

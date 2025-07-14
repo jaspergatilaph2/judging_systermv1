@@ -29,5 +29,15 @@ class Scores extends Model
     {
         return $this->belongsTo(Criteria::class, 'criteria_id');
     }
+
+    public function judges()
+    {
+        return $this->belongsTo(Judges::class, 'judge_id');
+    }
+
+    public function criteria()
+    {
+        return $this->belongsTo(Criteria::class, 'criteria_id');
+    }
     use HasFactory;
 }
