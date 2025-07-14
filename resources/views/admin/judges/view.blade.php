@@ -277,7 +277,7 @@
                                             <td>{{ $judge->phone }}</td>
                                             <td>
                                                 @if($judge->image)
-                                                <img src="{{ asset('storage/' . $judge->image) }}" alt="Judge Image" width="100" height="100">
+                                                <img src="{{ asset('judges_images/' . $judge->image) }}" alt="Judge Image" width="100" height="100">
                                                 @else
                                                 <span class="text-muted">No Image</span>
                                                 @endif
@@ -328,7 +328,7 @@
                                                                         <label class="form-label">Image</label>
                                                                         <input type="file" class="form-control" name="image">
                                                                         @if($judge->image)
-                                                                        <img src="{{ asset('storage/' . $judge->image) }}" alt="Judge Image" width="60" class="mt-2 rounded">
+                                                                        <img src="{{ asset('judges_images/' . $judge->image) }}" alt="Judge Image" width="100" height="100" class="mt-2 rounded">
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -385,7 +385,7 @@
                                                             {{ $judge->password }}
                                                         </div>
                                                         </p>
-                                                        <img src="{{ asset('storage/' . $judge->image) }}" alt="Judge Image" class="img-fluid" style="border-radius: 10%;">
+                                                        <img src="{{ asset('jugdes_images/' . $judge->image) }}" alt="Judge Image" class="img-fluid" style="border-radius: 10%;">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

@@ -78,7 +78,32 @@ class JudgesController extends Controller
     public function update(Request $request, $id)
     {
         $judge = Judges::findOrFail($id);
-        $judge->update($request->all());
+
+        // Validate incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:judges,email,' . $id,
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // Add other fields if needed
+        ]);
+
+        // Handle image upload if present
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('judges_images'), $imageName);
+
+            // Update the image field in the judge model
+            $judge->image = $imageName;
+        }
+
+        // Update other fields
+        $judge->name = $request->name;
+        $judge->email = $request->email;
+        // Add more fields if needed
+
+        $judge->save();
+
         return redirect()->route('admin.judges.viewjudges')->with('success', 'Judge updated successfully.');
     }
 

@@ -11,7 +11,7 @@
                     <span class="app-brand-logo demo">
                     </span>
                     <img src="{{asset('storage/images/slsu2.png')}}" alt="" style="width: 50px;">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu</span>
+                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform:uppercase">slsu (BC)</span>
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -193,7 +193,7 @@
                                             </div>
                                             <div class="flex-grow-1">
                                                 <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                                                <small class="text-muted">Admin</small>
+                                                <small class="text-muted">{{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}</small>
                                             </div>
                                         </div>
                                     </a>
