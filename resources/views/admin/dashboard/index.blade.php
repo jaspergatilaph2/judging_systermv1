@@ -95,6 +95,11 @@
                 <div data-i18n="Without navbar">View Judges</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="" class="menu-link">
+                <div data-i18n="Without navbar">View Overall Scores</div>
+              </a>
+            </li>
           </ul>
         </li>
 
@@ -300,7 +305,7 @@
                 </div>
               </div> -->
               <!-- No comment yet -->
-              
+
               <!-- List of categories and counts -->
               <div class="col-md-8 pt-3">
                 <div class="card">
