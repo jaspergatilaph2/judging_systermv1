@@ -15,6 +15,16 @@ class VotesController extends Controller
             'contestant_id'    => 'required|exists:participants,id',
         ]);
 
+        // Check if the user already voted for this contestant
+        $alreadyVoted = Votes::where('user_id', auth()->id())
+            ->where('contestant_id', $request->contestant_id)
+            ->exists();
+
+        if ($alreadyVoted) {
+            return back()->with('error', 'You have already voted for this contestant.');
+        }
+
+        // Store the vote
         Votes::create([
             'user_id'          => auth()->id(),
             'contestant_id'    => $request->contestant_id,

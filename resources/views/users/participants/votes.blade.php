@@ -303,26 +303,27 @@
                                         <div class="mb-3">
                                             <label class="form-label" for="contest-category">Contest Category</label>
                                             <select class="form-control" id="contest-category" name="contest_category" required>
+                                                <option value="">-- Select Category --</option>
                                                 <option value="Mr. & Ms. Contest">Mr. & Ms. Contest</option>
                                                 <option value="Pageant">Pageant</option>
                                             </select>
                                         </div>
 
-                                        {{-- Select Contestant --}}
+                                        <!-- Contestants -->
                                         <div class="mb-3">
                                             <label class="form-label" for="contestant">Select Contestant</label>
                                             <select class="form-control" id="contestant" name="contestant_id" required>
                                                 <option value="" selected disabled>-- Select Contestant --</option>
                                                 @foreach ($contestants as $contestant)
-                                                <option value="{{ $contestant->id }}">
-                                                    {{ $contestant->name }} ({{ $contestant->contest_number }})
+                                                <option value="{{ $contestant->id }}" data-category="{{ $contestant->contest_category }}">
+                                                    {{ $contestant->student_name }} ({{ $contestant->student_id }})
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
                                         {{-- Vote Button --}}
-                                        <button type="submit" class="btn btn-success w-100">Vote Now</button>
+                                        <button type="submit" class="btn btn-primary w-100">Vote Now</button>
                                     </form>
 
 

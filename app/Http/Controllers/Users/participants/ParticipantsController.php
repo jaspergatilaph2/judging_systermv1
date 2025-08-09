@@ -122,16 +122,13 @@ class ParticipantsController extends Controller
 
     public function viewVotes()
     {
-        $contestants = Participants::where('user_id', Auth::id())
-            ->whereNotNull('contest_type')
-            ->whereNotNull('contest_category')
+        $contestants = Participants::whereNotNull('contest_type')
+            ->where('contest_category', 'Pageant')
             ->get();
-
-        return view('users.participants.votes', compact('contestants'), [
-            'ActiveTab' => 'votes',
-            'SubActiveTab' => 'view votes'
+        return view('users.participants.votes', [
+            'contestants'   => $contestants,
+            'ActiveTab'     => 'votes',
+            'SubActiveTab'  => 'view votes'
         ]);
     }
-
-    
 }
