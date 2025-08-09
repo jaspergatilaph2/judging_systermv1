@@ -19,7 +19,7 @@ class ParticipantsController extends Controller
     }
 
 
-    
+
 
     public function store(Request $request)
     {
@@ -119,4 +119,19 @@ class ParticipantsController extends Controller
         $participant->delete();
         return back()->with('success', 'Deleted successfully !!');
     }
+
+    public function viewVotes()
+    {
+        $contestants = Participants::where('user_id', Auth::id())
+            ->whereNotNull('contest_type')
+            ->whereNotNull('contest_category')
+            ->get();
+
+        return view('users.participants.votes', compact('contestants'), [
+            'ActiveTab' => 'votes',
+            'SubActiveTab' => 'view votes'
+        ]);
+    }
+
+    
 }

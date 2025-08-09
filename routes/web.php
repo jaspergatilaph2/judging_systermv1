@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\judges\JudgesController;
 use App\Http\Controllers\Admin\events\EventsController;
 use App\Http\Controllers\Judges\accounts\AccountsJudgeController;
 use App\Http\Controllers\Users\participants\ParticipantsController;
+use App\Http\Controllers\Users\participants\VotesController;
 use App\Http\Controllers\Users\users\UsersController;
 use App\Models\Criteria;
 
@@ -140,11 +141,13 @@ Route::group(['middleware' => ['auth:web', 'IfUser'], 'prefix' => 'users'], func
         Route::get('/view', [ParticipantsController::class, 'view'])->name('view');
         Route::put('/view/{participants}/update', [ParticipantsController::class, 'update'])->name('update');
         Route::delete('/view/{participants}/destroy', [ParticipantsController::class, 'destroy'])->name('destroy');
+        Route::get('/votes', [ParticipantsController::class, 'viewVotes'])->name('votes');
+        Route::post('/votes/store', [VotesController::class, 'store'])->name('vote.store');
     });
 
 
     // Settings Routes
-    Route::prefix('settings')->name('users.settings.')->group(function(){
+    Route::prefix('settings')->name('users.settings.')->group(function () {
         Route::get('/', [UsersController::class, 'SettingsIndex'])->name('settingsIndex');
     });
 });
